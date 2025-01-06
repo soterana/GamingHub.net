@@ -1,9 +1,13 @@
 {
-  "redirects": [
+  "version": 2,
+  "routes": [
     {
-      "source": "/search.html",
-      "destination": "/search",
-      "permanent": true
+      "src": "/search",
+      "dest": "/search.html"
+    },
+    {
+      "src": "/old-search",
+      "dest": "/search"
     }
   ]
 }
