@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamingHub - city bike stunt 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            color: #0277bd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            justify-content: center;
+        }
+        h1 {
+            background-color: #0288d1;
+            color: white;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+        }
+        .game-container {
+            text-align: center;
+            width: 80%;
+            max-width: 1000px;
+        }
+        .game-container iframe {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 10px;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .controls button {
+            padding: 10px;
+            background-color: #0288d1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background-color: #0277bd;
+        }
+        .back-link {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ffeb3b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #fbc02d;
+        }
+    </style>
+</head>
+<body>
+    <h1>GamingHub</h1>
+    <div class="game-container">
+        <h2>city bike stunt 2</h2>
+        <iframe src="http://slither.com/io" title="City bike stunt 2 Game"></iframe>
+        <div class="controls">
+            <button onclick="toggleFullscreen()">Go Full Screen</button>
+            <a href="index.html" class="back-link">Back to Game Hub</a>
+        </div>
+    </div>
+
+    <script>
+function toggleFullscreen() {
+    const iframe = document.querySelector('iframe'); // Get the iframe element
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    } else {
+        iframe.requestFullscreen(); // Make the iframe go fullscreen
+    }
+}
+    </script>
+    
+</body>
+  </html>
