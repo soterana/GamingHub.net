@@ -1,9 +1,13 @@
 {
-  "redirects": [
+  "headers": [
     {
-      "source": "/(.*)",
-      "destination": "https://gaminghubplay.vercel.app/$1",
-      "permanent": true
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml"
+        }
+      ]
     }
   ]
 }
