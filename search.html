@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Feature</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 1rem;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .search {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .search input {
+      padding: 0.5rem;
+      width: 80%;
+      max-width: 400px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .search button {
+      padding: 0.5rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .search button:hover {
+      background-color: #0056b3;
+    }
+
+    .results {
+      margin-top: 20px;
+    }
+
+    .result-item {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      font-size: 1rem;
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Search Games</h1>
+
+    <div class="search">
+      <input type="text" id="search-input" placeholder="Search for games..." />
+      <button onclick="searchGames()">Search</button>
+    </div>
+
+    <div class="results" id="results">
+      <!-- Search results will appear here -->
+    </div>
+  </div>
+
+  <script>
+    const games = [
+      { name: "Taming.io", url: "https://taming.io" },
+      { name: "Superfighters", url: "https://html5.gamedistribution.com/a7a878d376bf4223adc51d2ba04fb77c/" },
+      { name: "Little Big Snake", url: "https://littlebigsnake.com" }
+    ];
+
+    function searchGames() {
+      const query = document.getElementById('search-input').value.toLowerCase();
+      const resultsContainer = document.getElementById('results');
+      resultsContainer.innerHTML = '';
+
+      const filteredGames = games.filter(game => game.name.toLowerCase().includes(query));
+
+      if (filteredGames.length === 0) {
+        resultsContainer.innerHTML = '<p>No games found.</p>';
+      } else {
+        filteredGames.forEach(game => {
+          const resultItem = document.createElement('div');
+          resultItem.classList.add('result-item');
+          resultItem.innerHTML = `<a href="${game.url}" target="_blank">${game.name}</a>`;
+          resultsContainer.appendChild(resultItem);
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
