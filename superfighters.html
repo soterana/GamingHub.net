@@ -69,7 +69,7 @@
     <h1>GamingHub</h1>
     <div class="game-container">
         <h2>Superfighters</h2>
-        <iframe src="https://html5.gamedistribution.com/a7a878d376bf4223adc51d2ba04fb77c/" title="Superfighters Game"></iframe>
+        <iframe src="https://html5.gamedistribution.com/a7a878d376bf4223adc51d2ba04fb77c" title="Superfighters Game"></iframe>
         <div class="controls">
             <button onclick="toggleFullscreen()">Go Full Screen</button>
             <a href="index.html" class="back-link">Back to Game Hub</a>
@@ -77,14 +77,15 @@
     </div>
 
     <script>
-        function toggleFullscreen() {
-            const elem = document.documentElement;
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            } else {
-                elem.requestFullscreen();
-            }
-        }
+function toggleFullscreen() {
+    const iframe = document.querySelector('iframe'); // Get the iframe element
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    } else {
+        iframe.requestFullscreen(); // Make the iframe go fullscreen
+    }
+}
     </script>
+    
 </body>
 </html>
