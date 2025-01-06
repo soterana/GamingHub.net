@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, minimal-ui">
+  <meta name="theme-color" content="#007bff">
+  <title>Gaming Hub - Play Free Games</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    /* Adjust games grid to display in a row with minimal space */
+    .games-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0; /* No space between games */
+      padding: 0;
+      justify-content: flex-end; /*ign to the left */
+    }
+
+    .game {
+      display: block;
+      width: 200px; /* Fixed width for each image block */
+      height: 150px; /* Adjusted height to fit the image and text */
+      text-align: center; /* Center the text below the image */
+    }
+
+    .game img {
+      width: 100px;  /* Fixed width of the image */
+      height: 75px;  /* Fixed height of the image */
+      cursor: pointer;
+      object-fit: cover; /* Ensures the image covers the area properly */
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .game img:hover {
+      filter: brightness(0.8) blur(2px); /* Apply blur and brightness on hover */
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8); /* White aura effect */
+    }
+
+    .game h3 {
+      margin-top: 0.5rem; /* Space between image and text */
+      font-size: 1rem;    /* Adjust text size */
+      color: #333;
+      cursor: pointer;
+    }
+
+    .search {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .search input {
+      padding: 0.5rem;
+      width: 60%;
+      max-width: 400px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+
+    .search button {
+      padding: 0.5rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .search button:hover {
+      background-color: #0056b3;
+    }
+
+    .fullscreen-btn {
+    position: fixed;
+    top: 220px; /* Adjust the value to move it further down */
+    right: 10px;
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
+}
+
+    .fullscreen-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .game-display {
+      display: none;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      padding: 1rem;
+      margin: 1rem;
+    }
+
+    .game-display iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+
+    .close-btn {
+      background-color: #d9534f;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><a href="#" onclick="showHomepage()">Gaming Hub</a></h1>
+  <p>Discover and play free games anytime, anywhere!</p>
+</header>
+
+<div id="homepage" class="container">
+  <div class="search">
+    <input type="text" id="search-bar" placeholder="Search for games...">
+    <button onclick="searchGames()">Search</button>
+  </div>
+
+  <div class="games-grid" id="games">
+
+    <div class="game" data-name="Taming.io" onclick="showGame('https://taming.io')">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAA21BMVEX9ix7RQELpaS6zDVv/rTj/jx39iRzSQUHQPkPoZy//rzqyClzqay3xbC7TQ0AhKi0qLSw3MSvYQUP+ni0nMSrLOEfxdyjeVzj2fyQjLSwvLyz+ojDaUTs9Miz9kSP+mirgfSHIM0rlYjLWSj69Wi1xQiztcSqrVC3whR+pYyaSWCi+bSRlRj6+I1PogSCIUyi4GVfDPz/IciNVPSvdZS59RiwVKyyWTS2zWSxUMy9VPTbQYC5QOCxKOTJiPS1sRyqTOjeoPDt3TSnDLE5yNDUPJS2AOTRiNTG1PT1Xn1k2AAAET0lEQVRIiY3VW2OiOhAA4ACGBAkQKCjES7Faq7Xee93VbXtsd/v/f9GZgAha1OahfaifM5mZTBE6e3BfLR6mJOesqqHQ2INX9CcQh32s7ges/wTi8Cqs7Qdk3R+kikODHSSqMnoeglMP4u2ueByGUJdDJAM2T0OdZc5Se717K4dEOQEhxxD1pbPuH6IoerxOVZ3tMi2HtatQZ0m4HhfOeumIdVpQtsu0BGKdGbW0ltbNI1/FGMeuuIZsDcq2Y1MKa4bR316vFzlTLL8rdqLfsvVsl2kOMQp1eTvVUFk/Led9xKdYh4PwlF9bzLb73YOIoGpGDeOQ7TpgWdZKLLF+Walc6Ch2HiHTrkFziDHSw75qGGGBQQ9ubp44H6B2tVKpNnS8jJ7rtN4swBozDPg80wtM9kAIwYdYvwBYqbbxbfTg0XruFJR+tl9T8yR7kXBb65brwiA0EniBRs6Lp+Q3JB30bais3qPb+nV314KAGWzosdPy8nAKGX+HhnDXd3BcZwIRL9OI+sTxC06xtT0IlVStJ9GS7pe7lC1E6R31wT4kJiqo30/XK7gZ3A8yXYuk93q7WoVM0UFEmkPreRXxyJGHC8DJFaVEl22YjNhxC3ckQQ7/RJy/DhfxZBKPbpcOd/kie2Lg0Ch6KcJNBmFK+HCA8XaQ8ORWfC5QfvBUtN4I2cHxFrKbSMRQ/HaSVjqE01Fx9F8F99fzLKg921bV+pM0rQKFqOR077GhkRD++1YSLYNLZyELKEtfbZc+bqCvPJOBmcFrOZdJs+HoJUy+Lvwf9+ckGbgdvIncbbNlu0tcu9G4hDciktpCbbLJsVx+i9PBLIeVqpxYmB+ZrK1pOwhbYiQl/L0sVT35xks85C9eJ6DmDqrWQyIho0a7DMp3mc66PQs2BSjr4wzTDVN2oHJJvYX/ZdKZVoBJzNcBLmVSojbS8cLxxyY0owhlaWHu0FEq16QQH5o2PoCq9XsJkz4dTY65oSNWY1Mmug+Z0XxeR+JzWBYU48XS8V9kQQ8gg01dt6yeSFZGXqMYDEbxcO0I/80bH0JghDbh59wXsvq7puCps3xdCof74i/1gsxtIVPrCqVddmXTuc+3tU8llsvE9cW/d7Kh9kwrQMaumpQqtKl25cKFVOXsyUUj3ciR7ot4Xmdmd8wcMqNuUwm2+91bOws93aUSDrjrQtM9uWYCouUHdWm617tK+tv7gH9RMGAwXxKuhN/6Cy+fUHNmj80CVA7Puw8vDN4z9AQPVsKde/AeCNXMTmBqpyCRi1GH+UJ44UqnpE6zNe00fPP5BCfr6lOsMwcBi4mWQcV7Ea0Yxbec+x/JRpROm23MMxEVMm9Bv6Hj6y8vXdvyg/vxSqFClA/f9/+9J0VRis07AyFbktaSjKm9KXVHYHrsQAuUWbk7AQnE6gTaEXfkjkm4mTk+rMhJCBcjik0Tc9x9gwQutpHshCmDtAMJBueZpv0PsztuFtixE20AAAAASUVORK5CYII/100x75" alt="Taming.io">
+      <h3>Taming.io</h3>
+    </div>
+
+    <div class="game" data-name="Superfighters" onclick="showGame('https://html5.gamedistribution.com/a7a878d376bf4223adc51d2ba04fb77c/')">
+      <img src="https://images.twoplayergames.org/files/games/o3/Super_Fighters_180x135.jpg?auto=format&w=100" alt="Superfighters">
+      <h3>Superfighters</h3>
+    </div>
+
+    <div class="game" data-name="Little_Big_Snake" onclick="showGame('https://littlebigsnake.com')">
+      <img src="data:image/jpeg;base64,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" alt="Little Big Snake">
+      <h3>Little Big Snake</h3>
+    </div>
+<div class="game" data-name="" onclick="showGame('https://slither.io/')">
+      <img src="data:image/webp;base64,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" alt="Sither.io">
+      <h3>slither.io</h3>
+    </div>
+    <div class="game" data-name="City_Bike_Stunt_2" onclick="showGame('https://files.twoplayergames.org/files/games/o1/City_Bike_Stunt_2/index.html')">
+      <img src="https://images.twoplayergames.org/files/games/o1/City_Bike_Stunt_2/City_Bike_Stunt_2.jpg?auto=format&amp;fit=crop&amp;w=64&amp;h=64" alt="City_Bike_Stunt_2">
+      <h3>City Bike Stunt 2</h3>
+    </div>
+    <div class="game" data-name="Fire_And_Water" onclick="showGame('https://html5.gamedistribution.com/rvvASMiM/a55c9cc9c21e4fc683c8c6857f3d0c75/index.html?gd_sdk_referrer_url=https%3A%2F%2Fwww.twoplayergames.org%2Fgame%2Ffire-and-water&gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3d3dy50d29wbGF5ZXJnYW1lcy5vcmcvZ2FtZS9maXJlLWFuZC13YXRlciIsInBhcmVudERvbWFpbiI6InR3b3BsYXllcmdhbWVzLm9yZyIsInRvcERvbWFpbiI6InR3b3BsYXllcmdhbWVzLm9yZyIsImhhc0ltcHJlc3Npb24iOmZhbHNlLCJsb2FkZXJFbmFibGVkIjp0cnVlLCJob3N0IjoiaHRtbDUuZ2FtZWRpc3RyaWJ1dGlvbi5jb20iLCJ2ZXJzaW9uIjoiMS41LjE3In0%253D')">
+      <img src="https://images.twoplayergames.org/files/games/other/Fire_and_Water_180x135.jpg?auto=format&amp;w=100" alt="fire_and_water">
+      <h3>Fire And Water</h3>
+    </div>
+    <div class="game" data-name="sprunki" onclick="showGame('https://html5.gamedistribution.com/26272dd59da64ef58bfd83f89ad4ae2f/')">
+      <img src="https://img.gamedistribution.com/26272dd59da64ef58bfd83f89ad4ae2f-512x384.jpg" alt="sprunki">
+      <h3>Sprunki</h3>
+    </div>
+    <div class="game" data-name="gswitch3" onclick="showGame('')">
+      <img src="https://images.twoplayergames.org/files/games/mobile/o1/G_Switch_3_New/G_Switch_3_New.jpg?auto=format&amp;w=100" alt="gswithc3">
+      <h3>G-Switch3</h3>
+    </div>
+    <div class="game" data-name="twoplayerball3d" onclick="showGame('url')">
+      <img src="https://images.twoplayergames.org/files/games/other/TwoBall3D/TwoBall3D.jpg?auto=format&amp;w=100" alt="twoplayerball3d">
+      <h3>Two Player Ball 3D</h3>
+    </div>
+    <div class="game" data-name="sandwich-runner" onclick="showGame('https://html5.gamedistribution.com/b410ed46c5eb4bd2a000bb11a7511ff6/?gd_sdk_referrer_url=https%3A%2F%2Fwww.twoplayergames.org%2Fgame%2Fsandwich-runner')">
+      <img src="https://images.twoplayergames.org/files/games/other/sandwich-runner.jpg?auto=format&w=100" alt="sandwich-runner">
+      <h3>Sandwich Runner</h3>
+    </div>
+    <div class="game" data-name="Zombits_Trouble_Chapter_2" onclick="showGame('https://www.twoplayergames.org/gameframe/zombits-trouble-chapter-2')">
+      <img src="https://images.twoplayergames.org/files/games/other/Zombits_Trouble_Chapter_2_180x135.jpg?auto=format&w=200" alt="zombits-trouble-chapter-2">
+      <h3>Zombits Trouble Chapter 2</h3>
+    </div>
+    <div class="game" data-name="fishgame" onclick="showGame('https://www.twoplayergames.org/gameframe/fish-eat-getting-big')">
+      <img src="https://images.twoplayergames.org/files/games/o1/Fish_Eat_Getting_Big/Fish_Eat_Getting_Big.jpg?auto=format&w=200" alt="fishgamebig">
+      <h3>Fish Game [Big]</h3>
+    </div>
+    <div class="game" data-name="fly_or_die" onclick="showGame('https://evoworld.io/')">
+      <img src="https://img.poki-cdn.com/cdn-cgi/image/quality=78,width=40,height=40,fit=cover,f=auto/4617d96c-ae80-40a7-91d8-b5670a994084.png" alt="fly_or_die">
+      <h3>Fly Or Die</h3>
+    </div>
+    <div class="game" data-name="name" onclick="showGame('url')">
+      <img src="image" alt="gamename">
+      <h3>Name</h3>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div id="game-display" class="game-display">
+  <button class="close-btn" onclick="closeGame()">Close</button>
+  <iframe id="game-iframe" src=""></iframe>
+</div>
+
+<button id="fullscreen-btn" class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
+
+<script>
+  function toggleFullscreen() {
+    const gameIframe = document.getElementById('game-iframe');
+    if (!document.fullscreenElement) {
+      gameIframe.requestFullscreen();
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    }
+  }
+
+  function searchGames() {
+    const query = document.getElementById('search-bar').value.toLowerCase();
+    const games = document.querySelectorAll('.game');
+
+    games.forEach(game => {
+      const name = game.dataset.name.toLowerCase();
+      if (name.includes(query)) {
+        game.style.display = 'block';
+      } else {
+        game.style.display = 'none';
+      }
+    });
+  }
+
+  function showGame(url) {
+    document.getElementById('homepage').style.display = 'none';
+    const gameDisplay = document.getElementById('game-display');
+    const gameIframe = document.getElementById('game-iframe');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+    gameIframe.src = url;
+    gameDisplay.style.display = 'block';
+    fullscreenBtn.style.display = 'block';
+  }
+
+  function closeGame() {
+    const gameDisplay = document.getElementById('game-display');
+    const gameIframe = document.getElementById('game-iframe');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+    gameIframe.src = '';
+    gameDisplay.style.display = 'none';
+    fullscreenBtn.style.display = 'none';
+    showHomepage();
+  }
+
+  function showHomepage() {
+    document.getElementById('homepage').style.display = 'block';
+    document.getElementById('game-display').style.display = 'none';
+    document.getElementById('fullscreen-btn').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
