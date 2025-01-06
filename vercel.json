@@ -59,3 +59,22 @@
     }
   ]
 }
+{
+  "rewrites": [
+    {
+      "source": "/game/:path*",
+      "destination": "https://html5.gamedistribution.com/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/game/:path*",
+      "headers": [
+        {
+          "key": "Referer",
+          "value": "https://twoplayergames.org"
+        }
+      ]
+    }
+  ]
+}
