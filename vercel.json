@@ -59,22 +59,27 @@
     }
   ]
 }
+
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/game/:path*",
-      "destination": "https://html5.gamedistribution.com/:path*"
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "api/**/*",
+      "use": "@vercel/node"
     }
   ],
-  "headers": [
+  "routes": [
     {
-      "source": "/game/:path*",
-      "headers": [
-        {
-          "key": "Referer",
-          "value": "https://twoplayergames.org"
-        }
-      ]
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 }
