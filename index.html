@@ -221,14 +221,6 @@
 
   </div>
 </div>
-
-<div id="game-display" class="game-display">
-  <button class="close-btn" onclick="closeGame()">Close</button>
-  <iframe id="game-iframe" src=""></iframe>
-</div>
-
-<button id="fullscreen-btn" class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
-
 <script>
           function loadGame(gameName) {
             // Change the URL to the game name
@@ -236,8 +228,7 @@
             
             // Load the game dynamically in the same page
             document.body.innerHTML = `<h1>${gameName}</h1>
-                                       <iframe src="https://gaminghubplay.vercel.app/${gameName}" style="width: 100%; height: 80vh;" frameborder="0"></iframe>
-                                       <button onclick="goBack()">Go to Homepage</button>`;
+                                       <iframe src="https://gaminghubplay.vercel.app/${gameName}" style="width: 100%; height: 80vh;" frameborder="0"></iframe>`;
         }
         
 </script>
