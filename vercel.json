@@ -67,9 +67,7 @@
       "dest": "/zombiestroublechapter3.html"
     }
   ]
-}
 
-{
    "builds": [
     {
       "src": "*.html",
