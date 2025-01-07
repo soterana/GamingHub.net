@@ -351,10 +351,22 @@ body.dark-mode .game h3 {
   color: #fff;  /* White text for game titles */
 }
 
+#particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Make sure particles are behind everything else */
+}
+
 
 /* Container for the search input and suggestions */
 
   </style>
+  <!-- Add tsParticles Library -->
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.0/dist/tsparticles.min.js"></script>
+
 </head>
 <body>
 
@@ -636,7 +648,8 @@ function handleEnter(event) {
 
 // Get the dark mode toggle button and body element
 // Get the dark mode toggle button and body element
-const darkModeToggle = document.getElementById('dark-mode-toggle');
+const darkModeToggle = document.getElementById('dark-mode-toggle')
+darkModeToggle.addEventListener("click", loadParticles);
 const body = document.body;
 
 // Check if dark mode is already enabled in localStorage
@@ -655,6 +668,112 @@ darkModeToggle.addEventListener('click', () => {
     localStorage.setItem('darkMode', 'disabled');
   }
 });
+// Function to initialize particles for normal mode
+function initParticlesNormal() {
+  tsParticles.load("particles-container", {
+    particles: {
+      number: {
+        value: 100,
+      },
+      color: {
+        value: "#ffffff",  // White particles for normal mode
+      },
+      shape: {
+        type: "circle",
+      },
+      size: {
+        value: 3,
+      },
+      move: {
+        enable: true,
+        speed: 1,
+        direction: "none",
+      },
+      opacity: {
+        value: 0.5,
+      },
+    },
+  });
+}
+
+// Function to initialize particles for dark mode
+function initParticlesDark() {
+  tsParticles.load("particles-container", {
+    particles: {
+      number: {
+        value: 100,
+      },
+      color: {
+        value: "#00f9ff",  // Light blue particles for dark mode
+      },
+      shape: {
+        type: "circle",
+      },
+      size: {
+        value: 4,
+      },
+      move: {
+        enable: true,
+        speed: 2,
+        direction: "none",
+      },
+      opacity: {
+        value: 0.7,
+      },
+    },
+  });
+}
+
+// Function to load the correct particles based on dark mode status
+function loadParticles() {
+  if (document.body.classList.contains("dark-mode")) {
+    initParticlesDark();
+  } else {
+    initParticlesNormal();
+  }
+}
+
+// Call loadParticles initially
+loadParticles();
+
+// Reinitialize particles when dark mode is toggled
+// Function to trigger a burst of particles when a game is clicked
+function triggerGameParticles() {
+  tsParticles.addPreset("gameClickParticles", {
+    particles: {
+      number: {
+        value: 50,
+      },
+      color: {
+        value: "#ff5733",  // Orange particles on game click
+      },
+      shape: {
+        type: "circle",
+      },
+      size: {
+        value: 6,
+      },
+      move: {
+        enable: true,
+        speed: 4,
+        direction: "none",
+      },
+      opacity: {
+        value: 0.8,
+      },
+    },
+  });
+
+  // Trigger particle burst
+  tsParticles.fire("gameClickParticles");
+}
+
+// Add event listener for game click
+const games = document.querySelectorAll(".game");
+games.forEach(game => {
+  game.addEventListener("click", triggerGameParticles);
+});
+
 
 </script>
 
