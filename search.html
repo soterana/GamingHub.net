@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Feature</title>
+  <title>Search Results</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -67,11 +67,11 @@
 <body>
 
   <div class="container">
-    <h1>Search Games</h1>
+    <h1>Search Results</h1>
 
     <div class="search">
-      <input type="text" id="search-input" placeholder="Search for games..." />
-      <button onclick="searchGames()">Search</button>
+      <input type="text" id="search-input" placeholder="Search for games..." onkeyup="searchGamesAutomatically()" />
+      <button onclick="submitSearch()">Search</button>
     </div>
 
     <div class="results" id="results">
@@ -80,11 +80,19 @@
   </div>
 
   <script>
+    // Get the search term from the URL
+    const searchQuery = window.location.pathname.split('/search/')[1];
+    const decodedQuery = decodeURIComponent(searchQuery.replace(/\+/g, ' '));
     const games = [
-      
+      { name: "Taming.io", url: "https://www.taming.io" },
+      { name: "Minecraft", url: "https://www.minecraft.net" },
+      { name: "Fortnite", url: "https://www.epicgames.com/fortnite" },
+      { name: "League of Legends", url: "https://www.leagueoflegends.com" },
+      // Add more games here...
     ];
 
-    function searchGames() {
+    // Function to search games based on the search query
+    function searchGamesAutomatically() {
       const query = document.getElementById('search-input').value.toLowerCase();
       const resultsContainer = document.getElementById('results');
       resultsContainer.innerHTML = '';
@@ -102,6 +110,23 @@
         });
       }
     }
+
+    // Search based on the initial query from the URL
+    if (decodedQuery) {
+      document.getElementById('search-input').value = decodedQuery;
+      searchGamesAutomatically();
+    }
+
+    // Function to submit the search and redirect to the search results page
+    function submitSearch() {
+      const searchInput = document.getElementById('search-input').value.trim();
+      if (searchInput) {
+        window.location.href = `/search/${encodeURIComponent(searchInput.replace(/\s+/g, '+'))}`;
+      }
+    }
+
+    // Initial search based on the URL's query
+    searchGamesAutomatically();
   </script>
 
 </body>
