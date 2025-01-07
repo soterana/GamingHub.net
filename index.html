@@ -382,10 +382,19 @@ function searchGamesAutomatically() {
       if (gameName.includes(searchInput)) {
         const suggestionItem = document.createElement('div');
         suggestionItem.classList.add('suggestion-item');
-        suggestionItem.textContent = `ss-${gameElement.getAttribute('data-name')}`;
         
+        // Create a container to hold the image and name
+        const gameImage = gameElement.querySelector('img').cloneNode();
+        const gameNameText = `ss-${gameElement.getAttribute('data-name')}`;
+        
+        // Create the clickable suggestion with the image and name
+        suggestionItem.appendChild(gameImage);
+        suggestionItem.appendChild(document.createTextNode(gameNameText));
+
+        // Add an event listener to load the game when clicked
         suggestionItem.onclick = function() {
-          loadGame(gameElement.getAttribute('data-id'));  // Function to load the game
+          const gameUrl = gameElement.getAttribute('data-url');
+          loadGame(gameElement.getAttribute('data-id'), gameUrl);  // Function to load the game
           document.getElementById('search-bar').value = gameElement.getAttribute('data-name');  // Update the search bar
           suggestionsContainer.innerHTML = '';  // Clear suggestions after selection
         };
@@ -397,9 +406,12 @@ function searchGamesAutomatically() {
 }
 
 // Function to load the game (replace with your actual game-loading logic)
-function loadGame(gameId) {
+function loadGame(gameId, gameUrl) {
   console.log("Loading game: " + gameId);
-  // Here, you can add logic to load the game or redirect to the game's page
+  // Here, you can add logic to load the game or redirect to the game's URL
+  if (gameUrl) {
+    window.location.href = gameUrl; // Redirect to the game URL
+  }
 }
 
 // Function to handle the manual search if needed
@@ -410,6 +422,7 @@ function searchGames() {
     // You can also perform additional search logic here or redirect to a search results page
   }
 }
+
 
 
 
