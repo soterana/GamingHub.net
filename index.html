@@ -363,81 +363,36 @@
 }
 
 // Function to search games automatically as the user types
+// Function to search games automatically as the user types
 function searchGamesAutomatically() {
   const searchInput = document.getElementById('search-bar').value.toLowerCase();
   const gamesGrid = document.getElementById('games');
-  const suggestionsContainer = document.getElementById('suggestions-container');
   
-  // Clear previous suggestions
-  suggestionsContainer.innerHTML = '';
-
   // Get all the game elements in the grid
   const gameElements = document.querySelectorAll('.game');
   
-  if (searchInput.length > 0) {
-    // Iterate through all game elements and search for matches
-    gameElements.forEach(gameElement => {
-      const gameName = gameElement.getAttribute('data-name').toLowerCase();
-      
-      // If the game name matches the search input, show the suggestion
-      if (gameName.includes(searchInput)) {
-        const suggestionItem = document.createElement('div');
-        suggestionItem.classList.add('suggestion-item');
-        
-        // Create a container to hold the image and name
-        const gameImage = gameElement.querySelector('img').cloneNode();
-        const gameNameText = `ss-${gameElement.getAttribute('data-name')}`;
-        
-        // Create the clickable suggestion with the image and name
-        suggestionItem.appendChild(gameImage);
-        suggestionItem.appendChild(document.createTextNode(gameNameText));
-
-        // Add an event listener to load the game when clicked
-        suggestionItem.onclick = function() {
-          const gameUrl = gameElement.getAttribute('data-url');
-          loadGame(gameElement.getAttribute('data-id'), gameUrl);  // Function to load the game
-          document.getElementById('search-bar').value = gameElement.getAttribute('data-name');  // Update the search bar
-          suggestionsContainer.innerHTML = '';  // Clear suggestions after selection
-        };
-        
-        suggestionsContainer.appendChild(suggestionItem);
-
-        // Make the matching game visible and clickable
-        gameElement.style.opacity = '1';    // Show the game
-        gameElement.style.pointerEvents = 'auto'; // Make it clickable
-      } else {
-        // Hide non-matching games but keep them in the flow
-        gameElement.style.opacity = '0';   // Hide the game visually
-        gameElement.style.pointerEvents = 'none'; // Make it unclickable
-      }
-    });
-  } else {
-    // If no search input, show all games again
-    gameElements.forEach(gameElement => {
-      gameElement.style.opacity = '1';    // Make all games visible
-      gameElement.style.pointerEvents = 'auto'; // Enable click events
-    });
-  }
+  gameElements.forEach(gameElement => {
+    const gameName = gameElement.getAttribute('data-name').toLowerCase();
+    
+    // If the game name matches the search input, show the game
+    if (gameName.includes(searchInput)) {
+      gameElement.style.display = 'block';  // Show the game
+    } else {
+      gameElement.style.display = 'none';   // Hide the non-matching game
+    }
+  });
 }
 
 // Function to load the game (replace with your actual game-loading logic)
-function loadGame(gameId, gameUrl) {
+function loadGame(gameId) {
   console.log("Loading game: " + gameId);
   // Here, you can add logic to load the game or redirect to the game's URL
+  // For example:
+  const gameUrl = document.querySelector(`[data-id="${gameId}"]`).getAttribute('data-url');
   if (gameUrl) {
     window.location.href = gameUrl; // Redirect to the game URL
   }
 }
-
-// Function to handle the manual search if needed
-function searchGames() {
-  const searchInput = document.getElementById('search-bar').value.toLowerCase();
-  if (searchInput.length > 0) {
-    console.log("Searching for: " + searchInput);
-    // You can also perform additional search logic here or redirect to a search results page
-  }
-}
-
 
 
 
