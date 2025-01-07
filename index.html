@@ -360,12 +360,53 @@ body.dark-mode .game h3 {
   z-index: -1; /* Make sure particles are behind everything else */
 }
 
+.github {
+  bottom: 10px;
+  right: 10px;
+  position: fixed;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0 12px 6px 12px;
+  border: 1px solid #000;
+}
+
+.github a:hover,
+.github a:link,
+.github a:visited,
+.github a:active {
+  color: #000;
+  text-decoration: none;
+}
+
+.github img {
+  height: 30px;
+}
+
+.github #gh-project {
+  font-size: 20px;
+  padding-left: 5px;
+  font-weight: bold;
+  vertical-align: bottom;
+}
+
+
 
 /* Container for the search input and suggestions */
 
   </style>
   <!-- Add tsParticles Library -->
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2.0.0/dist/tsparticles.min.js"></script>
+  <div class="github">
+    <a class="btn btn-link" href="https://github.com/matteobruni/tsparticles" title="Find more info on GitHub">
+      <img class="img-fluid" id="gh-mark" src="https://cdn.matteobruni.it/images/particles/GitHub-Mark-120px-plus.png" alt="">
+      <span id="gh-project"></span>
+    </a>
+    <div>
+      <a class="github-button" href="https://github.com/matteobruni/tsparticles" data-icon="octicon-star" data-show-count="true" aria-label="Star matteobruni/tsparticles on GitHub">Star</a>
+      <a class="github-button" href="https://github.com/matteobruni/tsparticles/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork matteobruni/tsparticles on GitHub">Fork</a>
+      <a class="github-button" href="https://github.com/matteobruni/tsparticles/releases/tag/tsparticles%401.31.1" data-icon="octicon-download" aria-label="Download matteobruni/tsparticles on GitHub">Download</a>
+    </div>
+  </div>
+  <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
 
 </head>
 <body>
@@ -773,6 +814,235 @@ const games = document.querySelectorAll(".game");
 games.forEach(game => {
   game.addEventListener("click", triggerGameParticles);
 });
+
+//tsParticles library - https://github.com/matteobruni/tsparticles
+
+//tsParticles library - https://github.com/matteobruni/tsparticles
+
+(async () => {
+  await loadFull(tsParticles);
+
+  await tsParticles.load({
+    options: {
+      fpsLimit: 60,
+      particles: {
+        groups: {
+          z5000: {
+            number: {
+              value: 70
+            },
+            zIndex: {
+              value: 5000
+            }
+          },
+          z7500: {
+            number: {
+              value: 30
+            },
+            zIndex: {
+              value: 75
+            }
+          },
+          z2500: {
+            number: {
+              value: 50
+            },
+            zIndex: {
+              value: 25
+            }
+          },
+          z1000: {
+            number: {
+              value: 40
+            },
+            zIndex: {
+              value: 10
+            }
+          }
+        },
+        number: {
+          value: 200,
+          density: {
+            enable: false,
+            area: 800
+          }
+        },
+        color: {
+          value: "#fff",
+          animation: {
+            enable: false,
+            speed: 20,
+            sync: true
+          }
+        },
+        shape: {
+          type: "circle"
+        },
+        opacity: {
+          value: { min: 0.1, max: 1 },
+          random: false,
+          animation: {
+            enable: false,
+            speed: 3,
+            sync: false
+          }
+        },
+        size: {
+          value: 3
+        },
+        move: {
+          angle: {
+            value: 10,
+            offset: 0
+          },
+          enable: true,
+          speed: 5,
+          direction: "right",
+          random: false,
+          straight: true,
+          outModes: "out"
+        },
+        zIndex: {
+          value: 5,
+          opacityRate: 0.5
+        }
+      },
+      interactivity: {
+        detectsOn: "canvas",
+        events: {
+          onHover: {
+            enable: false,
+            mode: "repulse"
+          },
+          onClick: {
+            enable: true,
+            mode: "push"
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 400,
+            links: {
+              opacity: 1
+            }
+          },
+          bubble: {
+            distance: 400,
+            size: 40,
+            duration: 2,
+            opacity: 0.8
+          },
+          repulse: {
+            distance: 200
+          },
+          push: {
+            quantity: 4,
+            groups: ["z5000", "z7500", "z2500", "z1000"]
+          },
+          remove: {
+            quantity: 2
+          }
+        }
+      },
+      detectRetina: true,
+      background: {
+        color: "#000000"
+      },
+      emitters: {
+        position: {
+          y: 55,
+          x: -30
+        },
+        rate: {
+          delay: 7,
+          quantity: 1
+        },
+        size: {
+          width: 0,
+          height: 0
+        },
+        particles: {
+          shape: {
+            type: "images",
+            options: {
+              images: [
+                {
+                  src: "https://particles.js.org/images/amongus_blue.png",
+                  width: 205,
+                  height: 267
+                },
+                {
+                  src: "https://particles.js.org/images/amongus_cyan.png",
+                  width: 207,
+                  height: 265
+                },
+                {
+                  src: "https://particles.js.org/images/amongus_green.png",
+                  width: 204,
+                  height: 266
+                },
+                {
+                  src: "https://particles.js.org/images/amongus_lime.png",
+                  width: 206,
+                  height: 267
+                },
+                {
+                  src: "https://particles.js.org/images/amongus_orange.png",
+                  width: 205,
+                  height: 265
+                },
+                {
+                  src: "https://particles.js.org/images/amongus_pink.png",
+                  width: 205,
+                  height: 265
+                },
+                {
+                  src: "https://particles.js.org/images/amongus_red.png",
+                  width: 204,
+                  height: 267
+                },
+                {
+                  src: "https://particles.js.org/images/amongus_white.png",
+                  width: 205,
+                  height: 267
+                }
+              ]
+            }
+          },
+          opacity: {
+            value: 1
+          },
+          size: {
+            value: 40
+          },
+          move: {
+            speed: 10,
+            outModes: {
+              default: "destroy",
+              left: "none"
+            },
+            straight: true
+          },
+          zIndex: {
+            value: 0
+          },
+          rotate: {
+            value: {
+              min: 0,
+              max: 360
+            },
+            animation: {
+              enable: true,
+              speed: 10,
+              sync: true
+            }
+          }
+        }
+      }
+    }
+  });
+})();
 
 
 </script>
