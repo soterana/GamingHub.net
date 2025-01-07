@@ -12,12 +12,20 @@
   <title>Gaming Hub - Play Free Games</title>
 
   <style>
-   body {
+  /* General Styles */
+body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
   color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
 }
 
 header {
@@ -37,6 +45,191 @@ header a {
   margin: auto;
   padding: 1rem;
 }
+
+/* Search bar and button container */
+.search {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the input bar */
+#search-bar {
+  width: 80%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  background-color: #ffffff;
+}
+
+#search-bar.dark-mode {
+  background-color: #333;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+/* Style for the search button */
+button {
+  padding: 12px 20px;
+  background-color: #5c6bc0;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3f4b8b;
+}
+
+button.dark-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+button.dark-mode:hover {
+  background-color: #555;
+}
+
+/* Suggestions List Container */
+.ui-menu {
+  position: absolute;
+  top: 47px;
+  left: 0;
+  width: 100%;
+  max-width: 690px;
+  background-color: rgba(255, 255, 255, 0.9); /* Clear white with blur */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  z-index: 10;
+  padding: 10px 0;
+  list-style: none;
+  margin: 0;
+  display: none;
+  backdrop-filter: blur(5px); /* Add blur effect to the background */
+  transition: all 0.3s ease;
+}
+
+/* Display suggestions in a flex grid */
+.ui-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+  border-bottom: 1px solid #ddd; /* Separation between items */
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+/* Cross-line each suggestion */
+.ui-menu-item:before {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  right: 10px;
+  border-top: 2px solid #f44336; /* Red cross-line */
+  z-index: 1;
+}
+
+/* Hover effect on suggestions */
+.ui-menu-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Thumbnail image styling for games */
+.thumb {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+/* Tags for games */
+.game-tags {
+  display: flex;
+  gap: 8px;
+}
+
+.game-tag {
+  background-color: #5c6bc0;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.game-tag.dark-mode {
+  background-color: #444;
+}
+
+/* Game Name */
+.game-name {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+.game-name.dark-mode {
+  color: #e0e0e0;
+}
+
+/* Toggle Dark Mode Button */
+.dark-mode-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+  background-color: #0056b3;
+}
+
+.dark-mode-toggle:focus {
+  outline: none;
+}
+
+/* Suggestions Message */
+h2 {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+  margin-top: 20px;
+}
+
+h2.dark-mode {
+  color: #ccc;
+}
+
+/* Disable key suggestions */
+#search-bar:focus + .ui-menu {
+  display: block;
+}
+
 
 /* Adjust games grid to display in a row with minimal space */
 .games-grid {
@@ -76,120 +269,6 @@ header a {
 }
 
 /* Container for the search input and suggestions */
-.search {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-}
-
-/* Style for the input bar */
-#search-bar {
-  width: 80%;
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #ddd;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-
-/* Style for the search button */
-button {
-  padding: 12px 20px;
-  background-color: #5c6bc0;
-  color: #fff;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3f4b8b;
-}
-
-/* Suggestions list container */
-.ui-menu {
-  position: absolute;
-  top: 47px;
-  left: 0;
-  width: 100%;
-  max-width: 690px;
-  background-color: rgba(255, 255, 255, 0.9); /* Clear white with blur */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  z-index: 10;
-  padding: 10px 0;
-  list-style: none;
-  margin: 0;
-  display: none;
-  backdrop-filter: blur(5px); /* Add blur effect to the background */
-}
-
-/* Individual suggestion item */
-.ui-menu-item {
-  display: flex;
-  align-items: center;
-  padding: 10px 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-/* Cross-line each suggestion */
-.ui-menu-item:before {
-  content: ' ';
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  right: 10px;
-  border-top: 2px solid #f44336; /* Red cross-line */
-  z-index: 1;
-}
-
-/* Hover effect on suggestions */
-.ui-menu-item:hover {
-  background-color: #f0f0f0;
-}
-
-/* Thumbnail image styling */
-.thumb {
-  width: 32px;
-  height: 32px;
-  margin-right: 10px;
-  border-radius: 4px;
-  object-fit: cover;
-}
-
-/* Message below the suggestions */
-h2 {
-  text-align: center;
-  font-size: 16px;
-  color: #777;
-  margin-top: 20px;
-}
-
-/* Hide suggestions when clicking outside */
-body {
-  cursor: pointer;
-}
-
-body:active .ui-menu {
-  display: none;
-}
-
-/* Ensure the suggestions are visible when typing */
-#search-bar:focus + .ui-menu {
-  display: block;
-}
 
   </style>
 </head>
@@ -199,6 +278,7 @@ body:active .ui-menu {
   <h1><a href="#" onclick="showHomepage()">Gaming Hub</a></h1>
   <p>Discover and play free games anytime, anywhere!</p>
 </header>
+<button class="dark-mode-toggle" id="dark-mode-toggle">🌙</button>
 
 <div class="search">
   <input 
