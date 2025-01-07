@@ -222,10 +222,12 @@
   </div>
 </div>
 <script>
-function loadGame(gameName) {
-            // Change the URL to the game name
-            history.pushState({}, "", /${gameName});
+
+  function loadGame(gameName) {
+    // Change the URL to the game name and submit the change
+    history.pushState({}, "", `/${gameName}`);
 }
+
 
 </script>
 
