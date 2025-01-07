@@ -138,48 +138,71 @@
 
   <script>
     // List of games with their URLs and corresponding game names
-    const games = [
-      { name: "Taming.io", url: "https://www.taming.io" },
-      { name: "Minecraft", url: "https://www.minecraft.net" },
-      { name: "Fortnite", url: "https://www.epicgames.com/fortnite" },
-      { name: "League of Legends", url: "https://www.leagueoflegends.com" },
-      // Add more games here...
-    ];
+  // List of games with their URLs and corresponding game names
+  const games = [
+    { name: "Taming.io", url: "https://www.taming.io" },
+    { name: "Minecraft", url: "https://www.minecraft.net" },
+    { name: "Fortnite", url: "https://www.epicgames.com/fortnite" },
+    { name: "League of Legends", url: "https://www.leagueoflegends.com" },
+    // Add more games here...
+  ];
 
-    // Function to search games based on the search query
-    function searchGamesAutomatically() {
-      const query = document.getElementById('search-input').value.toLowerCase();
-      const gamesGrid = document.getElementById('games');
-      const gameItems = gamesGrid.getElementsByClassName('game');
+  // Function to search games based on the search query
+  function searchGamesAutomatically() {
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const gamesGrid = document.getElementById('games');
+    const gameItems = gamesGrid.getElementsByClassName('game');
 
-      // Loop through the game items and hide those that don't match the query
-      for (let i = 0; i < gameItems.length; i++) {
-        const gameName = gameItems[i].querySelector('h3').textContent.toLowerCase();
-        if (gameName.includes(query)) {
-          gameItems[i].style.display = 'block';
-        } else {
-          gameItems[i].style.display = 'none';
-        }
+    // Loop through the game items and hide those that don't match the query
+    for (let i = 0; i < gameItems.length; i++) {
+      const gameName = gameItems[i].querySelector('h3').textContent.toLowerCase();
+      if (gameName.includes(query)) {
+        gameItems[i].style.display = 'block';
+      } else {
+        gameItems[i].style.display = 'none';
       }
     }
+  }
 
-    // Function to submit the search and redirect to the search results page
-    function submitSearch() {
-      const searchInput = document.getElementById('search-input').value.trim();
-      if (searchInput) {
-        window.location.href = `/search/${encodeURIComponent(searchInput.replace(/\s+/g, '+'))}`;
-      }
+  // Function to populate the search input from the URL and trigger the search
+  function handleURLSearch() {
+    // Extract the search term from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTerm = urlParams.get("q"); // Assumes the query string is like /search?q=[search-term]
+
+    if (searchTerm) {
+      // Populate the search input field
+      const searchInput = document.getElementById('search-input');
+      searchInput.value = decodeURIComponent(searchTerm);
+
+      // Trigger the automatic search
+      searchGamesAutomatically();
     }
+  }
 
-    // Function to handle the game loading and URL update
-    function loadGame(gameName) {
-      // Change the URL to the game name
-      history.pushState({}, "", `/${gameName}`);
-
-      // Simulate navigation to the new URL
-      window.location.href = `/${gameName}`;
+  // Function to submit the search and redirect to the search results page
+  function submitSearch() {
+    const searchInput = document.getElementById('search-input').value.trim();
+    if (searchInput) {
+      // Redirect with a query string
+      window.location.href = `/search?q=${encodeURIComponent(searchInput)}`;
     }
-  </script>
+  }
+
+  // Function to handle the game loading and URL update
+  function loadGame(gameName) {
+    // Change the URL to the game name
+    history.pushState({}, "", `/${gameName}`);
+
+    // Simulate navigation to the new URL
+    window.location.href = `/${gameName}`;
+  }
+
+  // Automatically handle search when the page loads
+  window.onload = handleURLSearch;
+</script>
+
+
 
 </body>
 </html>
