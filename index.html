@@ -172,8 +172,15 @@
 </header>
 
 <div class="search">
-  <input type="text" id="search-bar" placeholder="Search for games..." oninput="searchGamesAutomatically()" />
+  <input 
+    type="text" 
+    id="search-bar" 
+    placeholder="Search for games..." 
+    oninput="searchGamesAutomatically()" 
+    onkeypress="handleEnter(event)" 
+  />
   <button onclick="submitSearch()">Search</button>
+  <div id="suggestions-list" class="suggestions-list"></div>
   <h2>More Games Will Be Uploaded Next Hour!</h2>
 </div>
 
@@ -407,6 +414,79 @@ function searchGamesAutomatically() {
 
   // Example usage: Call the function on page load or another event
   hideSpecificGames();
+  function handleEnter(event) {
+    if (event.key === 'Enter') {
+      submitSearch(); // Call the search function when Enter is pressed
+    }
+  }
+
+  const games = [
+  { name: 'Game 1', url: 'https://game1.com', imgSrc: 'game1.jpg' },
+  { name: 'Game 2', url: 'https://game2.com', imgSrc: 'game2.jpg' },
+  { name: 'Game 3', url: 'https://game3.com', imgSrc: 'game3.jpg' },
+  // Add more games as needed
+];
+
+function searchGamesAutomatically() {
+  const query = document.getElementById('search-bar').value.toLowerCase();
+  const suggestionsList = document.getElementById('suggestions-list');
+  
+  // Clear the previous suggestions
+  suggestionsList.innerHTML = '';
+
+  if (query.length > 0) {
+    const filteredGames = games.filter(game => game.name.toLowerCase().includes(query));
+
+    if (filteredGames.length > 0) {
+      suggestionsList.style.display = 'block';  // Show suggestions
+
+      filteredGames.forEach(game => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.classList.add('suggestion-item');
+        suggestionItem.innerHTML = `
+          <img src="${game.imgSrc}" alt="${game.name}" style="width: 40px; height: 40px; margin-right: 10px;" />
+          <span>${game.name}</span>
+        `;
+        
+        // Add click event to open game URL
+        suggestionItem.addEventListener('click', function() {
+          window.open(game.url, '_blank');
+        });
+
+        suggestionsList.appendChild(suggestionItem);
+      });
+    } else {
+      suggestionsList.style.display = 'none';  // Hide if no matches
+    }
+  } else {
+    suggestionsList.style.display = 'none';  // Hide when search bar is empty
+  }
+}
+
+function handleEnter(event) {
+  if (event.key === 'Enter') {
+    submitSearch();
+  }
+}
+
+function submitSearch() {
+  const query = document.getElementById('search-bar').value.toLowerCase();
+  const selectedGame = games.find(game => game.name.toLowerCase() === query);
+  
+  if (selectedGame) {
+    window.open(selectedGame.url, '_blank');
+  } else {
+    alert('Game not found. Please check your spelling or try another game.');
+  }
+}
+
+document.addEventListener('click', function(event) {
+  const suggestionsList = document.getElementById('suggestions-list');
+  if (!event.target.closest('.search')) {
+    suggestionsList.style.display = 'none';  // Hide suggestions when clicking outside
+  }
+});
+
 
 </script>
 
