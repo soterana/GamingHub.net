@@ -374,7 +374,6 @@ function searchGamesAutomatically() {
 
   gameElements.forEach(gameElement => {
     const gameTitle = gameElement.querySelector('h3').textContent.toLowerCase();  // Get the game name
-    const gameName = gameElement.dataset.name;  // Get the full game name for the onclick action
 
     // If the game name contains the search query, show it as a suggestion
     if (gameTitle.includes(searchInput)) {
@@ -382,9 +381,10 @@ function searchGamesAutomatically() {
       suggestionItem.classList.add('suggestion-item');
       suggestionItem.textContent = gameTitle;
       
-      // When a suggestion is clicked, it will call loadGame with the specific game name
+      // Capture the game name dynamically from the loadGame function
       suggestionItem.onclick = () => {
-        loadGame(gameName);  // Use the full game name that is inside the data-name attribute
+        const gameName = gameElement.getAttribute('onclick').match(/'([^']+)'/)[1]; // Extract game name from loadGame() function
+        loadGame(gameName);  // Pass the game name to loadGame
       };
       
       suggestionsList.appendChild(suggestionItem);
