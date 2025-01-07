@@ -49,18 +49,40 @@
       background-color: #0056b3;
     }
 
-    .results {
-      margin-top: 20px;
+    .games-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0; /* No space between games */
+      padding: 0;
+      justify-content: flex-start; /* Align to the left */
     }
 
-    .result-item {
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
-      font-size: 1rem;
+    .game {
+      display: block;
+      width: 200px; /* Fixed width for each image block */
+      height: 150px; /* Adjusted height to fit the image and text */
+      text-align: center; /* Center the text below the image */
     }
 
-    .result-item:last-child {
-      border-bottom: none;
+    .game img {
+      width: 100px;  /* Fixed width of the image */
+      height: 75px;  /* Fixed height of the image */
+      cursor: pointer;
+      object-fit: cover; /* Ensures the image covers the area properly */
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .game img:hover {
+      filter: brightness(0.8) blur(2px); /* Apply blur and brightness on hover */
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8); /* White aura effect */
+    }
+
+    .game h3 {
+      margin-top: 0.5rem; /* Space between image and text */
+      font-size: 1rem;    /* Adjust text size */
+      color: #333;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -74,15 +96,30 @@
       <button onclick="submitSearch()">Search</button>
     </div>
 
-    <div class="results" id="results">
-      <!-- Search results will appear here -->
+    <div class="games-grid" id="games">
+      <!-- Game items will appear here -->
+      <div class="game" data-name="Taming.io" onclick="loadGame('tamingio')">
+        <img src="https://via.placeholder.com/100x75" alt="Taming.io">
+        <h3>Taming.io</h3>
+      </div>
+      <div class="game" data-name="Minecraft" onclick="loadGame('minecraft')">
+        <img src="https://via.placeholder.com/100x75" alt="Minecraft">
+        <h3>Minecraft</h3>
+      </div>
+      <div class="game" data-name="Fortnite" onclick="loadGame('fortnite')">
+        <img src="https://via.placeholder.com/100x75" alt="Fortnite">
+        <h3>Fortnite</h3>
+      </div>
+      <div class="game" data-name="League of Legends" onclick="loadGame('leagueoflegends')">
+        <img src="https://via.placeholder.com/100x75" alt="League of Legends">
+        <h3>League of Legends</h3>
+      </div>
+      <!-- Add more games here as needed -->
     </div>
   </div>
 
   <script>
-    // Get the search term from the URL
-    const searchQuery = window.location.pathname.split('/search/')[1];
-    const decodedQuery = decodeURIComponent(searchQuery.replace(/\+/g, ' '));
+    // List of games with their URLs and corresponding game names
     const games = [
       { name: "Taming.io", url: "https://www.taming.io" },
       { name: "Minecraft", url: "https://www.minecraft.net" },
@@ -94,27 +131,18 @@
     // Function to search games based on the search query
     function searchGamesAutomatically() {
       const query = document.getElementById('search-input').value.toLowerCase();
-      const resultsContainer = document.getElementById('results');
-      resultsContainer.innerHTML = '';
+      const gamesGrid = document.getElementById('games');
+      const gameItems = gamesGrid.getElementsByClassName('game');
 
-      const filteredGames = games.filter(game => game.name.toLowerCase().includes(query));
-
-      if (filteredGames.length === 0) {
-        resultsContainer.innerHTML = '<p>No games found.</p>';
-      } else {
-        filteredGames.forEach(game => {
-          const resultItem = document.createElement('div');
-          resultItem.classList.add('result-item');
-          resultItem.innerHTML = `<a href="${game.url}" target="_blank">${game.name}</a>`;
-          resultsContainer.appendChild(resultItem);
-        });
+      // Loop through the game items and hide those that don't match the query
+      for (let i = 0; i < gameItems.length; i++) {
+        const gameName = gameItems[i].querySelector('h3').textContent.toLowerCase();
+        if (gameName.includes(query)) {
+          gameItems[i].style.display = 'block';
+        } else {
+          gameItems[i].style.display = 'none';
+        }
       }
-    }
-
-    // Search based on the initial query from the URL
-    if (decodedQuery) {
-      document.getElementById('search-input').value = decodedQuery;
-      searchGamesAutomatically();
     }
 
     // Function to submit the search and redirect to the search results page
@@ -125,8 +153,14 @@
       }
     }
 
-    // Initial search based on the URL's query
-    searchGamesAutomatically();
+    // Function to handle the game loading and URL update
+    function loadGame(gameName) {
+      // Change the URL to the game name
+      history.pushState({}, "", `/${gameName}`);
+
+      // Simulate navigation to the new URL
+      window.location.href = `/${gameName}`;
+    }
   </script>
 
 </body>
