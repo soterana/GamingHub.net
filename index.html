@@ -305,6 +305,53 @@ body.dark-mode .dark-mode-toggle:hover {
 }
 
 
+/* Dark Mode for Search Bar */
+body.dark-mode .search {
+  background-color: #333;  /* Dark background for the search container */
+  border: 1px solid #444;  /* Lighter border */
+}
+
+body.dark-mode #search-bar {
+  background-color: #444;  /* Dark input field */
+  color: #fff;  /* White text */
+  border: 1px solid #555;  /* Slightly lighter border */
+}
+
+body.dark-mode button {
+  background-color: #555;  /* Dark button */
+  color: #fff;  /* White text on the button */
+  border: 1px solid #666;  /* Light border for the button */
+}
+
+body.dark-mode button:hover {
+  background-color: #666;  /* Button hover effect */
+}
+
+/* Dark Mode for Suggestions List */
+body.dark-mode .ui-menu {
+  background-color: #222;  /* Dark background for suggestions */
+  border: 1px solid #444;  /* Border to match dark mode */
+}
+
+body.dark-mode .ui-menu-item {
+  color: #fff;  /* White text for suggestions */
+}
+
+body.dark-mode .ui-menu-item:hover {
+  background-color: #555;  /* Hover effect for suggestions */
+}
+
+/* Dark Mode Font for General Content */
+body.dark-mode h2 {
+  color: #ccc;  /* Lighter text color for headings */
+}
+
+/* Dark Mode Specific for Grid Items */
+body.dark-mode .game h3 {
+  color: #fff;  /* White text for game titles */
+}
+
+
 /* Container for the search input and suggestions */
 
   </style>
@@ -588,6 +635,7 @@ function handleEnter(event) {
 }
 
 // Get the dark mode toggle button and body element
+// Get the dark mode toggle button and body element
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const body = document.body;
 
@@ -607,7 +655,6 @@ darkModeToggle.addEventListener('click', () => {
     localStorage.setItem('darkMode', 'disabled');
   }
 });
-
 
 </script>
 
