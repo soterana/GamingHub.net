@@ -365,15 +365,21 @@
 // Function to search games automatically as the user types
 function searchGamesAutomatically() {
   const searchInput = document.getElementById('search-bar').value.toLowerCase();
+  const gamesGrid = document.getElementById('games');
   const suggestionsContainer = document.getElementById('suggestions-container');
   
   // Clear previous suggestions
   suggestionsContainer.innerHTML = '';
-  
+
   // Get all the game elements in the grid
   const gameElements = document.querySelectorAll('.game');
   
   if (searchInput.length > 0) {
+    // Hide all games initially
+    gameElements.forEach(gameElement => {
+      gameElement.style.display = 'none';  // Hide the game elements initially
+    });
+    
     // Iterate through all game elements and search for matches
     gameElements.forEach(gameElement => {
       const gameName = gameElement.getAttribute('data-name').toLowerCase();
@@ -400,7 +406,15 @@ function searchGamesAutomatically() {
         };
         
         suggestionsContainer.appendChild(suggestionItem);
+
+        // Show the matching game on the grid
+        gameElement.style.display = 'block';
       }
+    });
+  } else {
+    // If no search input, show all games again
+    gameElements.forEach(gameElement => {
+      gameElement.style.display = 'block';
     });
   }
 }
