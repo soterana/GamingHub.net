@@ -364,20 +364,20 @@
 
 // Function to search games automatically as the user types
 function searchGamesAutomatically() {
-  const searchInput = document.getElementById('search-bar').value.toLowerCase();
+  const searchInput = document.getElementById('search-bar').value.toLowerCase();  // Get the search input
   const gamesGrid = document.getElementById('games');
   
   // Get all the game elements in the grid
   const gameElements = document.querySelectorAll('.game');
   
   gameElements.forEach(gameElement => {
-    const gameTitle = gameElement.querySelector('h3').textContent.toLowerCase();
+    const gameTitle = gameElement.querySelector('h3').textContent.toLowerCase();  // Get the game name
     
-    // If the game title matches the search input, show the game
+    // If the game name contains the search query, show the game
     if (gameTitle.includes(searchInput)) {
       gameElement.style.display = 'block';  // Show the game
     } else {
-      gameElement.style.display = 'none';   // Hide the non-matching game
+      gameElement.style.display = 'none';  // Hide the game
     }
   });
 }
