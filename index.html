@@ -363,7 +363,6 @@
 }
 
 // Function to search games automatically as the user types
-// Function to search games automatically as the user types
 function searchGamesAutomatically() {
   const searchInput = document.getElementById('search-bar').value.toLowerCase();
   const gamesGrid = document.getElementById('games');
@@ -372,10 +371,10 @@ function searchGamesAutomatically() {
   const gameElements = document.querySelectorAll('.game');
   
   gameElements.forEach(gameElement => {
-    const gameName = gameElement.getAttribute('data-name').toLowerCase();
+    const gameTitle = gameElement.querySelector('h3').textContent.toLowerCase();
     
-    // If the game name matches the search input, show the game
-    if (gameName.includes(searchInput)) {
+    // If the game title matches the search input, show the game
+    if (gameTitle.includes(searchInput)) {
       gameElement.style.display = 'block';  // Show the game
     } else {
       gameElement.style.display = 'none';   // Hide the non-matching game
@@ -386,14 +385,25 @@ function searchGamesAutomatically() {
 // Function to load the game (replace with your actual game-loading logic)
 function loadGame(gameId) {
   console.log("Loading game: " + gameId);
-  // Here, you can add logic to load the game or redirect to the game's URL
+  // Here, you can add logic to load the game or run any commands
   // For example:
-  const gameUrl = document.querySelector(`[data-id="${gameId}"]`).getAttribute('data-url');
-  if (gameUrl) {
-    window.location.href = gameUrl; // Redirect to the game URL
+  switch(gameId) {
+    case 'tamingio':
+      // Run commands related to Taming.io
+      console.log("Running command for Taming.io...");
+      break;
+    case 'minecraft':
+      // Run commands related to Minecraft
+      console.log("Running command for Minecraft...");
+      break;
+    case 'fortnite':
+      // Run commands related to Fortnite
+      console.log("Running command for Fortnite...");
+      break;
+    default:
+      console.log("Game not found.");
   }
 }
-
 
 
 </script>
