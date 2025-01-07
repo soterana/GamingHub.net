@@ -75,7 +75,7 @@
       cursor: pointer;
     }
 
-    /* Container for the search input and suggestions */
+/* Container for the search input and suggestions */
 .search {
   position: relative;
   width: 100%;
@@ -85,28 +85,29 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
 }
 
 /* Style for the input bar */
 #search-bar {
-  width: 100%;
+  width: 80%;
   padding: 12px;
   font-size: 16px;
   border: 2px solid #ddd;
   border-radius: 4px;
-  margin-bottom: 12px;
+  margin-right: 10px;
 }
 
-/* Button styling */
+/* Style for the search button */
 button {
-  padding: 10px 15px;
+  padding: 12px 20px;
   background-color: #5c6bc0;
   color: #fff;
   font-size: 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 5px;
 }
 
 button:hover {
@@ -114,13 +115,12 @@ button:hover {
 }
 
 /* Suggestions list container */
-.suggestions-list {
-  display: none; /* Hidden by default */
+.ui-menu {
   position: absolute;
-  top: 55px;
+  top: 47px;
   left: 0;
   width: 100%;
-  max-height: 300px;
+  max-width: 690px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -128,23 +128,18 @@ button:hover {
   overflow-y: auto;
   z-index: 10;
   padding: 10px 0;
-}
-
-.suggestions-list ul {
-  list-style-type: none;
+  list-style: none;
   margin: 0;
-  padding: 0;
+  display: none;
 }
 
 /* Individual suggestion item */
 .ui-menu-item {
-  padding: 10px 16px;
-  cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 10px 16px;
+  cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 14px;
-  color: #333;
 }
 
 .ui-menu-item:hover {
@@ -168,21 +163,6 @@ h2 {
   margin-top: 20px;
 }
 
-/* Optional: Custom scrollbar styles */
-.suggestions-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.suggestions-list::-webkit-scrollbar-thumb {
-  background-color: #ddd;
-  border-radius: 4px;
-}
-
-.suggestions-list::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
-  border-radius: 4px;
-}
-
   </style>
 </head>
 <body>
@@ -203,23 +183,12 @@ h2 {
   <button onclick="submitSearch()">Search</button>
   
   <!-- Suggestions list -->
-  <div id="suggestions-list" class="suggestions-list">
-    <!-- Dynamic content will be injected here -->
-    <ul id="suggestions-list-ul">
-      <li class="ui-menu-item">
-        <a href="/games/stupidity_test" class="ui-menu-item-wrapper">
-          <img src="https://img.y8.com/cloud/y8-thumbs/93185/live_search_small.gif" class="thumb">
-          Stupidity Test
-        </a>
-      </li>
-      <!-- More dynamic suggestions go here -->
-    </ul>
-  </div>
+  <ul id="suggestions-list" class="ui-menu" style="display: none;">
+    <!-- Suggestions will be dynamically inserted here -->
+  </ul>
   
   <h2>More Games Will Be Uploaded Next Hour!</h2>
 </div>
-
-
 
   </div>
 
