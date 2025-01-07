@@ -387,7 +387,7 @@ function searchGamesAutomatically() {
       const searchInput = document.getElementById('search-bar').value.trim();
       if (searchInput) {
         // Redirect to the search page with the search query in the URL
-        window.location.href = `/search/${encodeURIComponent(searchInput.replace(/\s+/g, '+'))}`;
+        window.location.href = `/search/?${encodeURIComponent(searchInput.replace(/\s+/g, '+'))}`;
       }
     }
 
