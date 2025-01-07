@@ -2,60 +2,8 @@
   "version": 2,
   "routes": [
     {
-      "src": "/search",
-      "dest": "/search.html"
-    },
-    {
-      "src": "/superfighters",
-      "dest": "/superfighters.html"
-    },
-    {
-      "src": "/tamingio",
-      "dest": "/taming.io.html"
-    },
-    {
-      "src": "/flyoride",
-      "dest": "/flyoride.html"
-    },
-    {
-      "src": "/fishgamebig",
-      "dest": "/fishgamebig.html"
-    },
-    {
-      "src": "/citybikestunt2",
-      "dest": "/citybikestunt2.html"
-    },
-    {
-      "src": "/littlebigsnake",
-      "dest": "/littlebigsnake.html"
-    },
-    {
-      "src": "/sandwichrunner",
-      "dest": "/sandwichrunner.html"
-    },
-    {
-      "src": "/slitherio",
-      "dest": "/slitherio.html"
-    },
-    {
-      "src": "/fireandwater",
-      "dest": "/fireandwater.html"
-    },
-    {
-      "src": "/sprunki",
-      "dest": "/sprunki.html"
-    },
-    {
-      "src": "/gswitch3",
-      "dest": "/gswitch3.html"
-    },
-    {
-      "src": "/twoplayerball3d",
-      "dest": "/twoplayerball3d.html"
-    },
-    {
-      "src": "/zombiestroublechapter3",
-      "dest": "/zombiestroublechapter3.html"
+      "src": "/(.*)",
+      "dest": "/$1.html"
     }
-  ],
+  ]
 }
