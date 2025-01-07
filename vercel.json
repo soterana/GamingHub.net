@@ -2,14 +2,6 @@
   "version": 2,
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    },
-    {
       "src": "/search",
       "dest": "/search.html"
     },
@@ -66,14 +58,4 @@
       "dest": "/zombiestroublechapter3.html"
     }
   ],
-  "builds": [
-    {
-      "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "api/**/*",
-      "use": "@vercel/node"
-    }
-  ]
 }
