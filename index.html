@@ -420,72 +420,34 @@ function searchGamesAutomatically() {
     }
   }
 
-  const games = [
-  { name: 'Game 1', url: 'https://game1.com', imgSrc: 'game1.jpg' },
-  { name: 'Game 2', url: 'https://game2.com', imgSrc: 'game2.jpg' },
-  { name: 'Game 3', url: 'https://game3.com', imgSrc: 'game3.jpg' },
-  // Add more games as needed
-];
+  function searchGamesAutomatically() {
+    const searchInput = document.getElementById('search-bar').value.toLowerCase();
+    const gamesGrid = document.getElementById('games');
+    const gameElements = document.querySelectorAll('.game');
+    const suggestionsContainer = document.getElementById('suggestions-container');
 
-function searchGamesAutomatically() {
-  const query = document.getElementById('search-bar').value.toLowerCase();
-  const suggestionsList = document.getElementById('suggestions-list');
-  
-  // Clear the previous suggestions
-  suggestionsList.innerHTML = '';
+    // Clear existing suggestions
+    suggestionsContainer.innerHTML = '';
 
-  if (query.length > 0) {
-    const filteredGames = games.filter(game => game.name.toLowerCase().includes(query));
-
-    if (filteredGames.length > 0) {
-      suggestionsList.style.display = 'block';  // Show suggestions
-
-      filteredGames.forEach(game => {
-        const suggestionItem = document.createElement('div');
-        suggestionItem.classList.add('suggestion-item');
-        suggestionItem.innerHTML = `
-          <img src="${game.imgSrc}" alt="${game.name}" style="width: 40px; height: 40px; margin-right: 10px;" />
-          <span>${game.name}</span>
-        `;
+    gameElements.forEach(gameElement => {
+        const gameTitle = gameElement.querySelector('h3').textContent.toLowerCase();
         
-        // Add click event to open game URL
-        suggestionItem.addEventListener('click', function() {
-          window.open(game.url, '_blank');
-        });
-
-        suggestionsList.appendChild(suggestionItem);
-      });
-    } else {
-      suggestionsList.style.display = 'none';  // Hide if no matches
-    }
-  } else {
-    suggestionsList.style.display = 'none';  // Hide when search bar is empty
-  }
+        // If the game name includes the search query, show it as a suggestion
+        if (gameTitle.includes(searchInput)) {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.classList.add('suggestion-item');
+            suggestionItem.textContent = gameTitle;
+            suggestionItem.onclick = () => {
+                // Load the game when a suggestion is clicked
+                loadGame(gameElement.dataset.name);
+            };
+            suggestionsContainer.appendChild(suggestionItem);
+        }
+    });
+    
+    // Show or hide the suggestions container based on input
+    suggestionsContainer.style.display = searchInput ? 'block' : 'none';
 }
-
-function handleEnter(event) {
-  if (event.key === 'Enter') {
-    submitSearch();
-  }
-}
-
-function submitSearch() {
-  const query = document.getElementById('search-bar').value.toLowerCase();
-  const selectedGame = games.find(game => game.name.toLowerCase() === query);
-  
-  if (selectedGame) {
-    window.open(selectedGame.url, '_blank');
-  } else {
-    alert('Game not found. Please check your spelling or try another game.');
-  }
-}
-
-document.addEventListener('click', function(event) {
-  const suggestionsList = document.getElementById('suggestions-list');
-  if (!event.target.closest('.search')) {
-    suggestionsList.style.display = 'none';  // Hide suggestions when clicking outside
-  }
-});
 
 
 </script>
