@@ -391,6 +391,23 @@ function searchGamesAutomatically() {
       }
     }
 
+  // Function to hide <div> elements where data-name equals "name"
+  function hideSpecificGames() {
+    // Select all elements with the class 'game'
+    const gameElements = document.querySelectorAll('.game');
+
+    // Loop through each element
+    gameElements.forEach(game => {
+      // Check if the 'data-name' attribute matches "name"
+      if (game.dataset.name === "name") {
+        game.style.display = 'none'; // Make the element invisible
+      }
+    });
+  }
+
+  // Example usage: Call the function on page load or another event
+  hideSpecificGames();
+
 </script>
 
 </body>
