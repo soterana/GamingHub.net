@@ -362,16 +362,7 @@
 </div>
 <script>
 
- // Function to load a game when selected from a suggestion or clicked
-function loadGame(gameName) {
-  // Change the URL to the game name
-  history.pushState({}, "", `/${gameName}`);
-  
-  // Navigate to the new URL (this will reload the page or trigger routing in a single-page app)
-  window.location.href = `/${gameName}`;
-}
-
-// Function to search games automatically as the user types
+ // Function to search games automatically as the user types
 function searchGamesAutomatically() {
   const searchInput = document.getElementById('search-bar').value.toLowerCase();  // Get the search input
   const gamesGrid = document.getElementById('games');
@@ -389,16 +380,28 @@ function searchGamesAutomatically() {
       const suggestionItem = document.createElement('div');
       suggestionItem.classList.add('suggestion-item');
       suggestionItem.textContent = gameTitle;
+      
+      // Use the game's 'data-name' to load the correct game URL when clicked
       suggestionItem.onclick = () => {
-        // Load the game when a suggestion is clicked
-        loadGame(gameElement.dataset.name);
+        const gameName = gameElement.dataset.name;  // Get the 'data-name' of the clicked game
+        loadGame(gameName);  // Call the loadGame function with the game's name
       };
+      
       suggestionsList.appendChild(suggestionItem);
     }
   });
 
   // Show or hide the suggestions container based on input
   suggestionsList.style.display = searchInput ? 'block' : 'none';
+}
+
+// Function to load the game by its name and redirect to the appropriate URL
+function loadGame(gamename) {
+  // Change the URL to the game name
+  history.pushState({}, "", `/${gamename}`);
+  
+  // Navigate to the new URL (this will reload the page or trigger routing in a single-page app)
+  window.location.href = `/${gamename}`;
 }
 
 // Function to submit the search and redirect to the search page
