@@ -227,17 +227,10 @@
     // Change the URL to the game name
     history.pushState({}, "", `/${gameName}`);
     
-    // You can then load the specific content related to the game (e.g., using AJAX or dynamically rendering the content)
-    loadGameContent(gameName);
+    // Navigate to the new URL (this will reload the page or trigger routing in a single-page app)
+    window.location.href = `/${gameName}`;
 }
 
-function loadGameContent(gameName) {
-    // Load the content for the specific game here
-    console.log(`Loading content for ${gameName}`);
-    // For example, you can use fetch or update parts of the DOM dynamically
-    // Example:
-    document.getElementById("gameContainer").innerHTML = `Now playing: ${gameName}`;
-}
 
 
 
