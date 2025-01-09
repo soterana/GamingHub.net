@@ -1,4 +1,9 @@
  (adsbygoogle = window.adsbygoogle || []).push({});
+ (adsbygoogle = window.adsbygoogle || []).push({});
+ (adsbygoogle = window.adsbygoogle || []).push({});
+ (adsbygoogle = window.adsbygoogle || []).push({});
+ (adsbygoogle = window.adsbygoogle || []).push({});
+
     // Utility to set, get, and delete cookies
 const CookieUtils = {
   set(name, value, days) {
