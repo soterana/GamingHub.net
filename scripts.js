@@ -113,26 +113,3 @@ function handleEnter(event) {
     submitSearch(); // Call the search function when Enter is pressed
   }
 }
-
-// Get the dark mode toggle button and body element
-// Get the dark mode toggle button and body element
-const darkModeToggle = document.getElementById('dark-mode-toggle')
-darkModeToggle.addEventListener("click", loadParticles);
-const body = document.body;
-
-// Check if dark mode is already enabled in localStorage
-if (localStorage.getItem('darkMode') === 'enabled') {
-  body.classList.add('dark-mode');
-}
-
-// Event listener to toggle dark mode
-darkModeToggle.addEventListener('click', () => {
-  body.classList.toggle('dark-mode');
-
-  // Save the dark mode state in localStorage so it persists across page reloads
-  if (body.classList.contains('dark-mode')) {
-    localStorage.setItem('darkMode', 'enabled');
-  } else {
-    localStorage.setItem('darkMode', 'disabled');
-  }
-});
