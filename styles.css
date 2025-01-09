@@ -197,7 +197,7 @@ h2 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Automatically create columns of at least 200px */
   gap: 0; /* Adjust the space between the game containers */
-  padding: 10px; /* Optional padding around the grid */
+  padding: 10-px; /* Optional padding around the grid */
   justify-items: center; /* Center the games inside each grid item */
 }
 
