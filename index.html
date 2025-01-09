@@ -350,78 +350,106 @@ body.dark-mode h2 {
 body.dark-mode .game h3 {
   color: #fff;  /* White text for game titles */
 }
-/* Cookie Bar Styling */
-.cookie-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    font-family: 'Poppins', sans-serif;
-    animation: slide-up 0.5s ease-in-out;
+
+       /* Cookie Banner Styling */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #333;
+  color: #fff;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+}
+.cookie-banner p {
+  margin: 0;
+  font-size: 0.9em;
+}
+.cookie-buttons button {
+  margin: 0 0.5em;
+  padding: 0.5em 1em;
+  border: none;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+.cookie-buttons button:hover {
+  background: #0056b3;
 }
 
-.cookie-bar p {
-    margin: 0;
-    font-size: 1rem;
+/* Cookie Modal Styling */
+.cookie-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
 }
-
-.cookie-policy-link {
-    color: #00d1b2;
-    text-decoration: underline;
+.cookie-modal-content {
+  background: #fff;
+  padding: 2em;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
 }
-
-.cookie-button {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    margin-left: 0.5rem;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1rem;
-    transition: background 0.3s ease;
+.cookie-modal-content h3 {
+  margin-bottom: 1em;
 }
-
-.cookie-button.decline {
-    background: #f44336;
+.cookie-modal-content label {
+  display: block;
+  margin-bottom: 1em;
 }
-
-.cookie-button:hover {
-    background: #333;
+.hidden {
+  display: none;
 }
-
-@keyframes slide-up {
-    from {
-        transform: translateY(100%);
-    }
-    to {
-        transform: translateY(0);
-    }
-}
-
-
-
-/* Container for the search input and suggestions */
 
   </style>
 
 </head>
 <body>
-     <div id="cookie-consent-bar" class="cookie-bar">
-    <p>
-        We use third-party cookies to enhance your experience. By continuing to browse, you consent to our use of cookies.
-        <a href="/cookie-policy" class="cookie-policy-link">Learn more</a>
-    </p>
-    <button id="accept-cookies" class="cookie-button accept">Accept</button>
-    <button id="decline-cookies" class="cookie-button decline">Decline</button>
+     <!-- Cookie Banner -->
+<div id="cookie-banner" class="cookie-banner hidden">
+  <p>
+    We use cookies to enhance your browsing experience, analyze site traffic, and serve personalized content. By clicking "Accept", you agree to our use of cookies.
+    <a href="/privacy-policy" target="_blank">Learn More</a>
+  </p>
+  <div class="cookie-buttons">
+    <button id="accept-cookies">Accept</button>
+    <button id="reject-cookies">Reject</button>
+    <button id="manage-cookies">Manage Preferences</button>
+  </div>
 </div>
+
+<!-- Cookie Preferences Modal -->
+<div id="cookie-modal" class="cookie-modal hidden">
+  <div class="cookie-modal-content">
+    <h3>Manage Cookie Preferences</h3>
+    <label>
+      <input type="checkbox" id="functional-cookies" checked disabled>
+      Functional Cookies (Required)
+    </label>
+    <label>
+      <input type="checkbox" id="analytics-cookies">
+      Analytics Cookies
+    </label>
+    <label>
+      <input type="checkbox" id="ads-cookies">
+      Advertising Cookies
+    </label>
+    <button id="save-preferences">Save Preferences</button>
+  </div>
+</div>
+
 
 
 <header>
@@ -628,27 +656,61 @@ body.dark-mode .game h3 {
      data-ad-client="ca-pub-1720344232804931"
      data-ad-slot="4880565273"></ins>
 <script>
-     // Cookie Consent Logic
-document.addEventListener("DOMContentLoaded", () => {
-    const cookieBar = document.getElementById("cookie-consent-bar");
-    const acceptButton = document.getElementById("accept-cookies");
-    const declineButton = document.getElementById("decline-cookies");
+    // Utility to set, get, and delete cookies
+const CookieUtils = {
+  set(name, value, days) {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+  },
+  get(name) {
+    return document.cookie.split('; ').reduce((r, v) => {
+      const [key, val] = v.split('=');
+      return key === name ? val : r;
+    }, '');
+  },
+  delete(name) {
+    this.set(name, '', -1);
+  },
+};
 
-    // Check if the cookie consent is already given
-    if (!localStorage.getItem("cookieConsent")) {
-        cookieBar.style.display = "flex";
-    }
+// Elements
+const cookieBanner = document.getElementById('cookie-banner');
+const cookieModal = document.getElementById('cookie-modal');
+const functionalCheckbox = document.getElementById('functional-cookies');
+const analyticsCheckbox = document.getElementById('analytics-cookies');
+const adsCheckbox = document.getElementById('ads-cookies');
 
-    acceptButton.addEventListener("click", () => {
-        localStorage.setItem("cookieConsent", "accepted");
-        cookieBar.style.display = "none";
-    });
-
-    declineButton.addEventListener("click", () => {
-        localStorage.setItem("cookieConsent", "declined");
-        cookieBar.style.display = "none";
-    });
+// Event Listeners
+document.getElementById('accept-cookies').addEventListener('click', () => {
+  CookieUtils.set('cookies-accepted', 'all', 365);
+  hideCookieBanner();
 });
+document.getElementById('reject-cookies').addEventListener('click', () => {
+  CookieUtils.set('cookies-accepted', 'none', 365);
+  hideCookieBanner();
+});
+document.getElementById('manage-cookies').addEventListener('click', () => {
+  cookieModal.classList.remove('hidden');
+});
+document.getElementById('save-preferences').addEventListener('click', () => {
+  const preferences = {
+    analytics: analyticsCheckbox.checked,
+    ads: adsCheckbox.checked,
+  };
+  CookieUtils.set('cookie-preferences', JSON.stringify(preferences), 365);
+  cookieModal.classList.add('hidden');
+  hideCookieBanner();
+});
+
+// Show Banner if No Preferences
+if (!CookieUtils.get('cookies-accepted')) {
+  cookieBanner.classList.remove('hidden');
+}
+
+// Hide Banner
+function hideCookieBanner() {
+  cookieBanner.classList.add('hidden');
+}
 
 (adsbygoogle = window.adsbygoogle || []).push({});
  // Function to search games automatically as the user types
