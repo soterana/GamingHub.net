@@ -350,6 +350,61 @@ body.dark-mode h2 {
 body.dark-mode .game h3 {
   color: #fff;  /* White text for game titles */
 }
+/* Cookie Bar Styling */
+.cookie-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    font-family: 'Poppins', sans-serif;
+    animation: slide-up 0.5s ease-in-out;
+}
+
+.cookie-bar p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.cookie-policy-link {
+    color: #00d1b2;
+    text-decoration: underline;
+}
+
+.cookie-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.cookie-button.decline {
+    background: #f44336;
+}
+
+.cookie-button:hover {
+    background: #333;
+}
+
+@keyframes slide-up {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
 
 
 
@@ -359,6 +414,15 @@ body.dark-mode .game h3 {
 
 </head>
 <body>
+     <div id="cookie-consent-bar" class="cookie-bar">
+    <p>
+        We use third-party cookies to enhance your experience. By continuing to browse, you consent to our use of cookies.
+        <a href="/cookie-policy" class="cookie-policy-link">Learn more</a>
+    </p>
+    <button id="accept-cookies" class="cookie-button accept">Accept</button>
+    <button id="decline-cookies" class="cookie-button decline">Decline</button>
+</div>
+
 
 <header>
   <h1><a href="#" onclick="showHomepage()">Gaming Hub</a></h1>
@@ -564,6 +628,28 @@ body.dark-mode .game h3 {
      data-ad-client="ca-pub-1720344232804931"
      data-ad-slot="4880565273"></ins>
 <script>
+     // Cookie Consent Logic
+document.addEventListener("DOMContentLoaded", () => {
+    const cookieBar = document.getElementById("cookie-consent-bar");
+    const acceptButton = document.getElementById("accept-cookies");
+    const declineButton = document.getElementById("decline-cookies");
+
+    // Check if the cookie consent is already given
+    if (!localStorage.getItem("cookieConsent")) {
+        cookieBar.style.display = "flex";
+    }
+
+    acceptButton.addEventListener("click", () => {
+        localStorage.setItem("cookieConsent", "accepted");
+        cookieBar.style.display = "none";
+    });
+
+    declineButton.addEventListener("click", () => {
+        localStorage.setItem("cookieConsent", "declined");
+        cookieBar.style.display = "none";
+    });
+});
+
 (adsbygoogle = window.adsbygoogle || []).push({});
  // Function to search games automatically as the user types
 function searchGamesAutomatically() {
