@@ -29,6 +29,7 @@ def create_game_html():
 
   gtag('config', 'G-P25S7VMFB1');
 </script>
+<script type="text/javascript" data-cmp-ab="1" src="https://cdn.consentmanager.net/delivery/autoblocking/4050ab40324ac.js" data-cmp-host="d.delivery.consentmanager.net" data-cmp-cdn="cdn.consentmanager.net" data-cmp-codesrc="16"></script>
   <title>GamingHub - {game_title}</title>
   <style>
     /* Add your styles here */
