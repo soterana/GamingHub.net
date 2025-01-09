@@ -9,8 +9,16 @@
   <meta name="theme-color" content="#007bff">
   <meta name="description" content="GamingHubPlay is your one-stop hub for gaming news, reviews, and community discussions.">
 <meta name="keywords" content="gaming, news, reviews, community, games">
-    <link rel="icon" href="https://i.ibb.co/vzDbmHw/Untitled-design.png/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32'><circle cx='16' cy='16' r='15' fill='blue'/></svg>">
+    <link rel="icon" href="https://i.ibb.co/gwTKyWV/7476b6d8-b261-40cd-a505-fde11fa99789-1-modified.png">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P25S7VMFB1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-P25S7VMFB1');
+</script>
   
   <title>Gaming Hub - Play Free Games</title>
 
@@ -49,45 +57,36 @@
     <button id="save-preferences">Save Preferences</button>
   </div>
 </div>
-
-
 <header>
-  <h1><a href="#" onclick="showHomepage()">Gaming Hub</a></h1>
-  <p>Discover and play free games anytime, anywhere!</p>
-</header>
-<button class="dark-mode-toggle" id="dark-mode-toggle">🌙</button>
-<div class="search">
-  <input 
-    type="text" 
-    id="search-bar" 
-    placeholder="Search for games..." 
-    oninput="searchGamesAutomatically()" 
-    onkeypress="handleEnter(event)" 
-  >
-  <button onclick="submitSearch()">Search</button>
-  
-  <!-- Suggestions list -->
-  <ul id="suggestions-list" class="ui-menu" style="display: none;">
-    <!-- Suggestions will be dynamically inserted here -->
-  </ul>
-  
-  <h2>More Games Will Be Uploaded Next Hour!</h2>
- 
+  <div class="left-bar">
+    <div class="web-icon">
+      <img src="https://i.ibb.co/gwTKyWV/7476b6d8-b261-40cd-a505-fde11fa99789-1-modified.png" alt="web icon" />
+    </div>
+    <div class="buttons">
+      <button class="search-btn" onclick="toggleSearch()">🔍</button>
+      <button class="refresh-btn" onclick="refreshPage()">🔄</button>
+    </div>
+    <!-- Search bar initially hidden -->
+    </div>
   </div>
+</header>
+
+<!-- Snowflakes container -->
+<div id="snowflakes"></div>
   <div class="games-grid" id="games">
 
-<div class="game" data-name="huntandseek" onclick="loadGame('huntandseek.html')">
+<div class="game" data-gif="gamevideo.gif" onclick="loadGame('huntandseek.html')">
         <img src="https://img.gamemonetize.com/ubcvklxh46y40jktna9twhqj4t8ez42y/512x384.jpg" alt="Hunt And Seek">
         <h3>Hunt And Seek</h3>
     </div>
 
 
-<div class="game" data-name="jellyrunarchrace" onclick="loadGame('jellyrunarchrace.html')">
+<div class="game" data-gif="jellyrunarchrace" onclick="loadGame('jellyrunarchrace.html')">
         <img src="https://img.gamemonetize.com/iop0x3c9gwklm4oeqwrnq5gb586ukmjo/512x384.jpg" alt="Jelly Run Arch Race">
         <h3>Jelly Run Arch Race</h3>
     </div>
 
-    <div class="game" data-name="stickmansniper" onclick="loadGame('stickmansniper.html')">
+    <div class="game" data-mp4="https://gamemonetize.video/video/58o5c66cu7kdk0y2pap14twa0dx24btb-1736421111.mp4" onclick="loadGame('stickmansniper.html')">
         <img src="https://img.gamemonetize.com/58o5c66cu7kdk0y2pap14twa0dx24btb/512x384.jpg" alt="Stickman Sniper">
         <h3>Stickman Sniper</h3>
     </div>
@@ -97,7 +96,7 @@
         <h3>Knife Hit</h3>
     </div>
 
-    <div class="game" data-name="tiktokgravitykniferush" onclick="loadGame('tiktokgravitykniferush.html')">
+    <div class="game" data-mp4="https://img.y8.com/cloud/v2-y8-video-previews-001/videos/200959/075196815714272b3360c0b258894e2b1a680e83.mp4?1730969295" onclick="loadGame('tiktokgravitykniferush.html')">
         <img src="https://img.gamemonetize.com/6x3qdbn5n865ol9pylr3a05ojkio1r1l/512x384.jpg" alt="TikTok Gravity Knify Rush">
         <h3>TikTok Gravity Knify Rush</h3>
     </div>
@@ -116,12 +115,12 @@
       <h3>Taming.io</h3>
     </div>
 
-    <div class="game" data-name="Superfighters" onclick="loadGame('superfighters')">
+    <div class="game" data-mp4="https://img.y8.com/cloud/y8-rollover/videos/313/4e77d5b57b7bbe7151c70d6b582a73ad4bc7e0ac.mp4?1460390900" onclick="loadGame('superfighters')">
       <img src="https://images.twoplayergames.org/files/games/o3/Super_Fighters_180x135.jpg?auto=format&w=100" alt="Superfighters">
       <h3>Superfighters</h3>
     </div>
 
-    <div class="game" data-name="Little_Big_Snake" onclick="loadGame('littlebigsnake')">
+    <div class="game" data-mp4="https://gameforge.com/de-DE/littlegames/includes/videos/games/1792_6064352397a16.mp4" onclick="loadGame('littlebigsnake')">
       <img src="data:image/jpeg;base64,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" alt="Little Big Snake">
       <h3>Little Big Snake</h3>
     </div>
@@ -185,7 +184,7 @@
       <img src="https://img.gamemonetize.com/o4i40mgrpxgzltypewm2jeqc3usjik5f/512x384.jpg" alt="Sprunki Night Funkun">
       <h3>Sprunki Night Funkun</h3>
     </div>
-    <div class="game" data-name="mrracer" onclick="loadGame('mrracer')">
+    <div class="game" data-mp4="https://videos.crazygames.com/mr-racer---car-racing/1/mr-racer---car-racing-landscape-205x115_30fps.mp4" onclick="loadGame('mrracer')">
       <img src="https://img.gamemonetize.com/y34098moqvr8ueuddbb4vnwxmtorlq4i/512x384.jpg" alt="Mr Racer">
       <h3>Mr Racer</h3>
       </div>
@@ -193,7 +192,7 @@
       <img src="https://img.gamemonetize.com/dfks3ov5rz1pnx8i30ahwwknfpi0d7gw/512x384.jpg" alt="Rushy Racing">
       <h3>Rushy Racing</h3>
     </div>
-    <div class="game" data-name="jellyrun" onclick="loadGame('jellyrun.html')">
+    <div class="game" data-mp4="https://img.y8.com/cloud/v2-y8-video-previews-002/videos/202949/6888a3110c1c2692f88e2afc309ef1e90da60132.mp4?1735899290" onclick="loadGame('jellyrun.html')">
     <img src="https://img.gamemonetize.com/y51x5nb673umhgqzva6jz2596cd57cqc/512x384.jpg" alt="Jelly Run 2048">
     <h3>Jelly Run 2048</h3>
     </div>

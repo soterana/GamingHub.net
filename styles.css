@@ -8,144 +8,6 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Dark Mode */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-header {
-  background-color: #007bff;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-}
-
-header a {
-  color: white;
-  text-decoration: none;
-}
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 1rem;
-}
-
-/* Search bar and button container */
-.search {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-}
-
-/* Style for the input bar */
-#search-bar {
-  width: 80%;
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #ddd;
-  border-radius: 4px;
-  margin-right: 10px;
-  background-color: #ffffff;
-}
-
-#search-bar.dark-mode {
-  background-color: #333;
-  color: #e0e0e0;
-  border-color: #444;
-}
-
-/* Style for the search button */
-button {
-  padding: 12px 20px;
-  background-color: #5c6bc0;
-  color: #fff;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3f4b8b;
-}
-
-button.dark-mode {
-  background-color: #333;
-  color: #fff;
-}
-
-button.dark-mode:hover {
-  background-color: #555;
-}
-
-/* Suggestions List Container */
-.ui-menu {
-  position: absolute;
-  top: 47px;
-  left: 0;
-  width: 100%;
-  max-width: 690px;
-  background-color: rgba(255, 255, 255, 0.9); /* Clear white with blur */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  z-index: 10;
-  padding: 10px 0;
-  list-style: none;
-  margin: 0;
-  display: none;
-  backdrop-filter: blur(5px); /* Add blur effect to the background */
-  transition: all 0.3s ease;
-}
-
-/* Display suggestions in a flex grid */
-.ui-menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  position: relative;
-  border-bottom: 1px solid #ddd; /* Separation between items */
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
-/* Cross-line each suggestion */
-.ui-menu-item:before {
-  content: ' ';
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  right: 10px;
-  border-top: 2px solid #f44336; /* Red cross-line */
-  z-index: 1;
-}
-
-/* Hover effect on suggestions */
-.ui-menu-item:hover {
-  background-color: #f0f0f0;
-}
-
-/* Thumbnail image styling for games */
-.thumb {
-  width: 50px;
-  height: 50px;
-  border-radius: 5px;
-  object-fit: cover;
-}
 
 /* Tags for games */
 .game-tags {
@@ -191,43 +53,75 @@ h2 {
   display: block;
 }
 
-
-/* Adjust games grid to display in a row with minimal space */
+/* Game grid container */
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Automatically create columns of at least 200px */
-  gap: 0; /* Adjust the space between the game containers */
-  padding: 1px; /* Optional padding around the grid */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Automatically create columns of at least 250px */
   justify-items: center; /* Center the games inside each grid item */
 }
 
-
+/* Game container styling */
 .game {
   display: block;
-  width: 200px; /* Fixed width for each image block */
-  height: 150px; /* Adjusted height to fit the image and text */
+  width: 250px; /* Increased width for each game */
+  height: 250px; /* Increased height for each game */
   text-align: center; /* Center the text below the image */
+  position: relative; /* For positioning the title and glow effect */
+  overflow: hidden; /* Ensures the glow effect and title don't overflow the container */
+  transition: transform 0.3s ease-in-out; /* Smooth transition for the effect */
+  border-radius: 12px; /* Optional rounded corners for the game container */
 }
 
+.game:hover {
+  transform: translateY(-5px); /* Slightly lift the container when hovered */
+}
+
+/* Game image styling */
 .game img {
-  width: 100px;  /* Fixed width of the image */
-  height: 75px;  /* Fixed height of the image */
-  cursor: pointer;
+  width: 100%; /* Make the image take the full width of the container */
+  height: 100%; /* Make the image take the full height of the container */
   object-fit: cover; /* Ensures the image covers the area properly */
-  border-radius: 8px;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
+/* Image hover effect */
 .game img:hover {
   filter: brightness(0.8) blur(2px); /* Apply blur and brightness on hover */
   box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8); /* White aura effect */
 }
 
+/* Title text styling */
 .game h3 {
-  margin-top: 0.5rem; /* Space between image and text */
-  font-size: 1rem;    /* Adjust text size */
-  color: #333;
+  position: absolute; /* Position the title inside the game container */
+  bottom: 20px; /* Position the title near the bottom of the container */
+  left: 50%; /* Center the title horizontally */
+  transform: translateX(-50%); /* Adjust to truly center the title */
+  font-size: 1.2rem; /* Adjust text size */
+  color: #fff; /* Title color */
   cursor: pointer;
+  opacity: 0; /* Hide title by default */
+  transition: opacity 0.3s ease; /* Smooth fade-in effect */
+  z-index: 2; /* Ensure the title stays above the image */
+}
+
+/* Title appears when hovered */
+.game:hover h3 {
+  opacity: 1; /* Make the title visible on hover */
+}
+
+/* Glow effect under the title on hover */
+.game:hover::after {
+  content: ""; /* Create a pseudo-element */
+  position: absolute;
+  bottom: 10px; /* Position the glow below the title */
+  left: 50%;
+  transform: translateX(-50%); /* Center the glow effect */
+  width: 60%; /* Adjust width of the glow effect */
+  height: 8px; /* Height of the glow */
+  background: rgba(255, 255, 255, 0.6); /* Glow color */
+  box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.6); /* Subtle glow effect */
+  transition: all 0.3s ease; /* Smooth transition */
 }
 
 .cookie-banner {
@@ -289,4 +183,227 @@ h2 {
 }
 .hidden {
   display: none;
+}
+/* Snowflakes Container (falls from the top of the page, near the URL bar) */
+.snowflakes-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Allow clicks through snowflakes */
+  z-index: 10; /* Ensure snowflakes are on top of the games */
+  overflow: hidden;
+}
+
+/* Snowflakes Styling */
+.snowflake {
+  position: absolute;
+  top: -10px;
+  z-index: 5;
+  pointer-events: none;
+  color: white;
+  font-size: 1.5rem;
+  user-select: none;
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+
+/* Snowflake Animation (falling) */
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* Search Bar Wrapper (start with a thin vertical bar, animate to full size) */
+.search-bar-wrapper {
+  width: 20px; /* Initial width as a vertical bar */
+  height: 40px;
+  transition: width 0.5s ease-in-out; /* Animate width change */
+  overflow: hidden;
+}
+
+/* Styling the actual search bar input */
+#search-bar {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  display: block;
+  opacity: 0; /* Initially hide the input */
+  transition: opacity 0.3s ease;
+}
+
+
+.web-icon img {
+  width: 30px;
+  height: 30px;
+}
+
+.buttons button {
+  margin: 0 5px;
+  background: none;
+  color: white;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Search Button and Refresh Button */
+.search-btn, .refresh-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+/* Snowflakes Container (falls from the top of the page, near the URL bar) */
+.snowflakes-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Allow clicks through snowflakes */
+  z-index: 10; /* Ensure snowflakes are on top of the games */
+  overflow: hidden;
+}
+
+/* Snowflakes Styling */
+.snowflake {
+  position: absolute;
+  top: -10px;
+  z-index: 5;
+  pointer-events: none;
+  color: white;
+  font-size: 1.5rem;
+  user-select: none;
+  opacity: 0.8;
+  animation: fall linear infinite;
+}
+
+/* Snowflake Animation (falling) */
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+/* Search Bar Wrapper (start with a thin vertical bar, animate to full size) */
+.search-bar-wrapper {
+  width: 20px; /* Initial width as a vertical bar */
+  height: 40px;
+  transition: width 0.5s ease-in-out; /* Animate width change */
+  overflow: hidden;
+}
+
+/* Styling the actual search bar input */
+#search-bar {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  display: block;
+  opacity: 0; /* Initially hide the input */
+  transition: opacity 0.3s ease;
+  background-color: black; /* Dark background for the search bar */
+  color: white; /* White text color */
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
+}
+
+/* Search Button and Refresh Button */
+.search-btn, .refresh-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.search-btn:hover, .refresh-btn:hover {
+  transform: scale(1.1); /* Hover effect to scale buttons */
+}
+
+/* Snowflakes occasionally sticking to games */
+.stuck {
+  animation: none;
+  position: absolute;
+  background-color: #fff;
+  opacity: 1;
+  border-radius: 50%;
+}
+
+/* Left Bar Styling */
+.left-bar {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #333;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  width: 60px; /* Small width for the left bar */
+  transition: width 0.3s ease-in-out; /* Smooth transition for resizing the bar */
+}
+
+.left-bar .web-icon {
+  margin-bottom: 15px;
+}
+
+.left-bar img {
+  width: 40px;
+  height: 40px;
+}
+
+.left-bar .buttons button {
+  background-color: #444;
+  color: white;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.left-bar .buttons button:hover {
+  background-color: #555;
+}
+
+/* Snowflakes effect customization */
+.snowflakes-container .snowflake {
+  font-size: 1.5rem; /* Adjust size of the snowflakes */
+  animation: fall linear infinite; /* Make snowflakes fall infinitely */
+  opacity: 0.8; /* Slight opacity for a subtle look */
+  user-select: none;
+}
+
+/* Responsive Design for smaller screens */
+@media screen and (max-width: 768px) {
+  .search-bar-wrapper {
+    width: 150px; /* Adjust search bar width for mobile */
+  }
+
+  #search-bar {
+    font-size: 14px; /* Make the font size smaller on mobile */
+    padding: 8px;
+  }
+
+  .left-bar {
+    width: 50px; /* Smaller left bar for mobile */
+  }
+
+  .left-bar img {
+    width: 35px; /* Smaller web icon on mobile */
+    height: 35px;
+  }
 }
