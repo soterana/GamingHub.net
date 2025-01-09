@@ -9,5 +9,16 @@
       "src": "/(.*)",
       "dest": "/$1.html"
     }
+  ],
+    {
+  "headers": [
+    {
+      "source": "/*",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Feature-Policy", "value": "interest-cohort=()" }
+      ]
+    }
   ]
+}
 }
