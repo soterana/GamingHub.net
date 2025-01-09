@@ -90,12 +90,23 @@ function searchGamesAutomatically() {
 
 // Function to load the game by its name and redirect to the appropriate URL
 function loadGame(gamename) {
-  // Change the URL to the game name
-  history.pushState({}, "", `/${gamename}`);
-  
-  // Navigate to the new URL (this will reload the page or trigger routing in a single-page app)
-  window.location.href = `/${gamename}`;
+  // Check if AdSense vignette ads are enabled
+  if (window.google_vignette) {
+    // Wait for a short period to allow the vignette ad to show
+    setTimeout(() => {
+      // Change the URL to the game name
+      history.pushState({}, "", `/${gamename}`);
+      
+      // Navigate to the new URL
+      window.location.href = `/${gamename}`;
+    }, 2000); // Adjust the delay based on your needs (in milliseconds)
+  } else {
+    // If vignette ads are not available, navigate immediately
+    history.pushState({}, "", `/${gamename}`);
+    window.location.href = `/${gamename}`;
+  }
 }
+
 
 // Function to submit the search and redirect to the search page
 function submitSearch() {
