@@ -194,12 +194,13 @@ h2 {
 
 /* Adjust games grid to display in a row with minimal space */
 .games-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0; /* No space between games */
-  padding: 0;
-  justify-content: flex-start; /*ign to the left */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Automatically create columns of at least 200px */
+  gap: 20px; /* Adjust the space between the game containers */
+  padding: 20px; /* Optional padding around the grid */
+  justify-items: center; /* Center the games inside each grid item */
 }
+
 
 .game {
   display: block;
