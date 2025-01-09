@@ -1,2 +1,21 @@
+# Allow all search engines to crawl the entire site
 User-agent: *
 Allow: /ads.txt
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+
+# Allow specific pages or directories
+Allow: /games/
+Allow: /action-games/
+Allow: /puzzle-games/
+Allow: /adventure-games/
+
+# Disallow specific files or file types
+Disallow: /cgi-bin/
+Disallow: /temp/
+Disallow: *.pdf
+Disallow: *.jpg
+
+# Sitemap location
+Sitemap: https://gaminghubplay.vercel.app/sitemaps.xml
