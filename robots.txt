@@ -1,3 +1,2 @@
 User-agent: *
-Allow: /
-Sitemap: https://gaminghubplay.vercel.app/sitemap.xml
+Allow: /ads.txt
