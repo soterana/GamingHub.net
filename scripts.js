@@ -118,64 +118,74 @@ function handleEnter(event) {
   }
 }
 document.addEventListener('DOMContentLoaded', () => {
-  // Function to initialize media hover effects
-  const initializeMediaHover = () => {
-    document.querySelectorAll('.game').forEach(game => {
-      const gifSource = game.getAttribute('data-gif');
-      const mp4Source = game.getAttribute('data-mp4');
-      const originalImage = game.querySelector('img');
-      let mediaElement = null;
+  // Ensure the script runs after the DOM is fully loaded
+  const gameElements = document.querySelectorAll('.game');
 
-      game.addEventListener('mouseenter', () => {
-        // Check if consent is granted before replacing media
-        if (typeof ConsentManager !== 'undefined' && ConsentManager.getConsentStatus()) {
-          if (gifSource) {
-            mediaElement = document.createElement('img');
-            mediaElement.src = gifSource;
-          } else if (mp4Source) {
-            mediaElement = document.createElement('video');
-            mediaElement.src = mp4Source;
-            mediaElement.autoplay = true;
-            mediaElement.muted = true;
-            mediaElement.loop = true;
-          }
-
-          if (mediaElement) {
-            mediaElement.style.width = '100%';
-            mediaElement.style.height = '100%';
-            mediaElement.style.objectFit = 'cover';
-            mediaElement.style.borderRadius = '12px';
-            game.replaceChild(mediaElement, originalImage);
-          }
-        } else {
-          console.warn('Consent not granted. Skipping media replacement.');
-        }
-      });
-
-      game.addEventListener('mouseleave', () => {
-        if (mediaElement) {
-          game.replaceChild(originalImage, mediaElement);
-          mediaElement = null;
-        }
-      });
-    });
-  };
-
-  // Initialize media hover once consent is granted
-  if (typeof ConsentManager !== 'undefined') {
-    // Listen for when consent is granted
-    ConsentManager.addEventListener('consentGranted', () => {
-      initializeMediaHover();
-    });
-
-    // If consent is already granted, initialize immediately
-    if (ConsentManager.getConsentStatus()) {
-      initializeMediaHover();
-    }
-  } else {
-    // Run without waiting for consent if no ConsentManager is found
-    initializeMediaHover();
+  if (gameElements.length === 0) {
+    console.error("No .game elements found on the page.");
+    return; // Stop execution if no elements are found
   }
+
+  gameElements.forEach(game => {
+    const gifSource = game.getAttribute('data-gif');
+    const mp4Source = game.getAttribute('data-mp4');
+    const originalImage = game.querySelector('img');
+    let mediaElement = null;
+
+    if (!originalImage) {
+      console.error("No <img> found inside .game element:", game);
+      return; // Skip if no image is found
+    }
+
+    // Mouse enter: replace image with GIF or MP4
+    game.addEventListener('mouseenter', () => {
+      if (originalImage.parentElement === game) {
+        if (gifSource) {
+          mediaElement = document.createElement('img');
+          mediaElement.src = gifSource;
+          mediaElement.alt = originalImage.alt;
+        } else if (mp4Source) {
+          mediaElement = document.createElement('video');
+          mediaElement.src = mp4Source;
+          mediaElement.autoplay = true;
+          mediaElement.muted = true;
+          mediaElement.loop = true;
+        }
+
+        if (mediaElement) {
+          mediaElement.style.width = '100%';
+          mediaElement.style.height = '100%';
+          mediaElement.style.objectFit = 'cover';
+          mediaElement.style.borderRadius = '12px';
+          game.replaceChild(mediaElement, originalImage);
+        }
+      }
+    });
+
+    // Mouse leave: revert back to the original image
+    game.addEventListener('mouseleave', () => {
+      if (mediaElement && mediaElement.parentElement === game) {
+        game.replaceChild(originalImage, mediaElement);
+        mediaElement = null;
+      }
+    });
+  });
+});
+
+const observer = new MutationObserver(() => {
+  // Re-run the code to attach events to new elements
+  const gameElements = document.querySelectorAll('.game:not(.initialized)');
+  gameElements.forEach(game => {
+    game.classList.add('initialized');
+    // Attach event listeners as shown in the updated code above
+  });
+});
+
+// Start observing the document body for changes
+observer.observe(document.body, { childList: true, subtree: true });
+
+window.addEventListener('consentGranted', () => {
+  initializeMediaHover(); // Your hover script
 });
 
 
