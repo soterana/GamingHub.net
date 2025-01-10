@@ -117,7 +117,6 @@ function handleEnter(event) {
     submitSearch(); // Call the search function when Enter is pressed
   }
 }
-
 document.querySelectorAll('.game').forEach(game => {
   const gifSource = game.getAttribute('data-gif');
   const mp4Source = game.getAttribute('data-mp4'); // New attribute for MP4 source
@@ -126,17 +125,12 @@ document.querySelectorAll('.game').forEach(game => {
 
   // Create a hover event listener for each game container
   game.addEventListener('mouseenter', () => {
-      // Only replace the image if it's still in the DOM
-      if (originalImage.parentElement === game) {
+      if (originalImage && originalImage.parentElement === game) {
           if (gifSource) {
               // If it's a GIF, create an img element
               mediaElement = document.createElement('img');
               mediaElement.src = gifSource;
               mediaElement.alt = originalImage.alt;
-              mediaElement.style.width = '100%';
-              mediaElement.style.height = '100%';
-              mediaElement.style.objectFit = 'cover';
-              mediaElement.style.borderRadius = '12px'; // Match image styling
           } else if (mp4Source) {
               // If it's an MP4, create a video element
               mediaElement = document.createElement('video');
@@ -144,23 +138,28 @@ document.querySelectorAll('.game').forEach(game => {
               mediaElement.autoplay = true;
               mediaElement.muted = true; // Ensure it plays silently
               mediaElement.loop = true; // Make the video loop
+          }
+
+          // Apply common styles if mediaElement is created
+          if (mediaElement) {
               mediaElement.style.width = '100%';
               mediaElement.style.height = '100%';
               mediaElement.style.objectFit = 'cover';
               mediaElement.style.borderRadius = '12px'; // Match image styling
+              game.replaceChild(mediaElement, originalImage); // Replace image with gif or video
           }
-          game.replaceChild(mediaElement, originalImage); // Replace image with gif or video
       }
   });
 
-  // Create a mouseleave event to revert back to the original image
+  // Revert back to the original image on mouseleave
   game.addEventListener('mouseleave', () => {
-      // Only replace back if mediaElement exists
       if (mediaElement && mediaElement.parentElement === game) {
-          game.replaceChild(originalImage, mediaElement); // Revert back to the original image
+          game.replaceChild(originalImage, mediaElement); // Replace media back with the original image
+          mediaElement = null; // Reset the media element
       }
   });
 });
+
 
 // Variables for snowflakes and search bar
 
