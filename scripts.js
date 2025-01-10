@@ -96,7 +96,7 @@ function loadGame(gamename) {
     
     // Navigate to the new URL
     window.location.href = `/${gamename}`;
-  }, 2000); // 2000 milliseconds = 2 seconds
+  }, 100); // 2000 milliseconds = 2 seconds
 }
 
 
