@@ -267,3 +267,16 @@ function createSnowflake() {
 setInterval(() => {
   createSnowflake();
 }, 500); // Adjust interval as needed
+function obfuscateIDsandClasses() {
+  // Obfuscate IDs
+  document.querySelectorAll('[id]').forEach(element => {
+      const originalId = element.id;
+      element.id = encodeToBase64(originalId);
+  });
+
+  // Obfuscate class names
+  document.querySelectorAll('[class]').forEach(element => {
+      const originalClasses = element.className;
+      element.className = encodeToBase64(originalClasses);
+  });
+}
