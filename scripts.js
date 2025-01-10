@@ -163,7 +163,7 @@ document.querySelectorAll('.game').forEach(game => {
 });
 
 // Variables for snowflakes and search bar
-const snowflakesContainer = document.getElementById('snowflakes');
+
 const searchBarWrapper = document.getElementById('search-bar-wrapper');
 const searchBar = document.getElementById('search-bar');
 
@@ -181,31 +181,62 @@ function toggleSearch() {
   }, 500); // Delay to allow the width transition to complete
 }
 
-// Snowflakes creation function
-function createSnowflake() {
-  const snowflake = document.createElement('div');
-  snowflake.classList.add('snowflake');
-  
-  // Random position and animation speed for each snowflake
-  const size = Math.random() * 10 + 5; // Random size between 5 and 15
-  snowflake.style.fontSize = `${size}px`;
-  snowflake.style.left = `${Math.random() * 100}vw`; // Random horizontal position
-  snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // Random animation duration between 2 and 5 seconds
-  snowflake.style.animationDelay = `${Math.random() * 2}s`; // Random delay for each snowflake
-  
-  // Add snowflake to the container
-  snowflakesContainer.appendChild(snowflake);
-
-  // Remove snowflake after it falls
-  setTimeout(() => {
-    snowflake.remove();
-  }, 10000); // After 10 seconds (adjust as needed)
-}
-
-// Generate snowflakes every 100 milliseconds
-setInterval(createSnowflake, 100);
 
 // Function to reload the page when the refresh button is clicked
 function refreshPage() {
   location.reload(); // Reload the page
 }
+
+const container = document.querySelector('.snowflakes-container');
+const gameElements = document.querySelectorAll('.game'); // Target all .game divs
+
+let snowflakeCount = 0;
+const maxSnowflakes = 20; // Limit the number of active snowflakes
+
+function createSnowflake() {
+  if (snowflakeCount >= maxSnowflakes) return; // Stop adding more snowflakes
+  snowflakeCount++;
+
+  const flake = document.createElement('div');
+  flake.classList.add('snowflake');
+  flake.style.left = `${Math.random() * 100}vw`;
+  flake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+  flake.style.setProperty('--x', Math.random() - 0.5);
+
+  // Add event listener for the end of the animation
+  flake.addEventListener('animationend', () => {
+    const flakeRect = flake.getBoundingClientRect();
+
+    let stuck = false;
+    gameElements.forEach((game) => {
+      const gameRect = game.getBoundingClientRect();
+      if (
+        flakeRect.bottom >= gameRect.top &&
+        flakeRect.left < gameRect.right &&
+        flakeRect.right > gameRect.left &&
+        Math.random() > 0.5 // 50% chance to stick
+      ) {
+        // Stick the snowflake to the game
+        stuck = true;
+        flake.style.animation = 'none'; // Stop animation
+        flake.style.position = 'absolute';
+        flake.style.top = `${flakeRect.bottom - gameRect.top}px`;
+        flake.style.left = `${flakeRect.left - gameRect.left}px`;
+        game.appendChild(flake); // Attach to the specific game element
+      }
+    });
+
+    if (!stuck) {
+      flake.remove(); // Remove if it doesn't stick
+    }
+
+    snowflakeCount--;
+  });
+
+  container.appendChild(flake);
+}
+
+// Generate snowflakes at intervals
+setInterval(() => {
+  createSnowflake();
+}, 500); // Adjust interval as needed
