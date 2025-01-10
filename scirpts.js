@@ -267,16 +267,13 @@ function createSnowflake() {
 setInterval(() => {
   createSnowflake();
 }, 500); // Adjust interval as needed
-function obfuscateIDsandClasses() {
-  // Obfuscate IDs
-  document.querySelectorAll('[id]').forEach(element => {
-      const originalId = element.id;
-      element.id = encodeToBase64(originalId);
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  // Base64 encoded HTML content
+  const encodedHTML = "PGRpdiBzdHJ5bGV0PSJjb250ZW50Ij5UaGlzIGlzIGFub2R5IGh1Z2UuPC9kaXY+";
 
-  // Obfuscate class names
-  document.querySelectorAll('[class]').forEach(element => {
-      const originalClasses = element.className;
-      element.className = encodeToBase64(originalClasses);
-  });
-}
+  // Decode Base64 to HTML
+  const decodedHTML = atob(encodedHTML);
+
+  // Inject the decoded HTML content into the body
+  document.body.innerHTML = decodedHTML;
+});
