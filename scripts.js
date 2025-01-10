@@ -117,46 +117,58 @@ function handleEnter(event) {
     submitSearch(); // Call the search function when Enter is pressed
   }
 }
-document.querySelectorAll('.game').forEach(game => {
-  const gifSource = game.getAttribute('data-gif');
-  const mp4Source = game.getAttribute('data-mp4'); // New attribute for MP4 source
-  const originalImage = game.querySelector('img'); // Store the original image
-  let mediaElement = null; // To store the media element (GIF or MP4)
+document.addEventListener('DOMContentLoaded', () => {
+  // Ensure the script runs after the DOM is fully loaded
+  const gameElements = document.querySelectorAll('.game');
 
-  // Create a hover event listener for each game container
-  game.addEventListener('mouseenter', () => {
-      if (originalImage && originalImage.parentElement === game) {
-          if (gifSource) {
-              // If it's a GIF, create an img element
-              mediaElement = document.createElement('img');
-              mediaElement.src = gifSource;
-              mediaElement.alt = originalImage.alt;
-          } else if (mp4Source) {
-              // If it's an MP4, create a video element
-              mediaElement = document.createElement('video');
-              mediaElement.src = mp4Source;
-              mediaElement.autoplay = true;
-              mediaElement.muted = true; // Ensure it plays silently
-              mediaElement.loop = true; // Make the video loop
-          }
+  if (gameElements.length === 0) {
+    console.error("No .game elements found on the page.");
+    return; // Stop execution if no elements are found
+  }
 
-          // Apply common styles if mediaElement is created
-          if (mediaElement) {
-              mediaElement.style.width = '100%';
-              mediaElement.style.height = '100%';
-              mediaElement.style.objectFit = 'cover';
-              mediaElement.style.borderRadius = '12px'; // Match image styling
-              game.replaceChild(mediaElement, originalImage); // Replace image with gif or video
-          }
+  gameElements.forEach(game => {
+    const gifSource = game.getAttribute('data-gif');
+    const mp4Source = game.getAttribute('data-mp4');
+    const originalImage = game.querySelector('img');
+    let mediaElement = null;
+
+    if (!originalImage) {
+      console.error("No <img> found inside .game element:", game);
+      return; // Skip if no image is found
+    }
+
+    // Mouse enter: replace image with GIF or MP4
+    game.addEventListener('mouseenter', () => {
+      if (originalImage.parentElement === game) {
+        if (gifSource) {
+          mediaElement = document.createElement('img');
+          mediaElement.src = gifSource;
+          mediaElement.alt = originalImage.alt;
+        } else if (mp4Source) {
+          mediaElement = document.createElement('video');
+          mediaElement.src = mp4Source;
+          mediaElement.autoplay = true;
+          mediaElement.muted = true;
+          mediaElement.loop = true;
+        }
+
+        if (mediaElement) {
+          mediaElement.style.width = '100%';
+          mediaElement.style.height = '100%';
+          mediaElement.style.objectFit = 'cover';
+          mediaElement.style.borderRadius = '12px';
+          game.replaceChild(mediaElement, originalImage);
+        }
       }
-  });
+    });
 
-  // Revert back to the original image on mouseleave
-  game.addEventListener('mouseleave', () => {
+    // Mouse leave: revert back to the original image
+    game.addEventListener('mouseleave', () => {
       if (mediaElement && mediaElement.parentElement === game) {
-          game.replaceChild(originalImage, mediaElement); // Replace media back with the original image
-          mediaElement = null; // Reset the media element
+        game.replaceChild(originalImage, mediaElement);
+        mediaElement = null;
       }
+    });
   });
 });
 
