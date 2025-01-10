@@ -184,6 +184,10 @@ const observer = new MutationObserver(() => {
 // Start observing the document body for changes
 observer.observe(document.body, { childList: true, subtree: true });
 
+window.addEventListener('consentGranted', () => {
+  initializeMediaHover(); // Your hover script
+});
+
 
 // Variables for snowflakes and search bar
 
