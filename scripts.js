@@ -172,6 +172,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+const observer = new MutationObserver(() => {
+  // Re-run the code to attach events to new elements
+  const gameElements = document.querySelectorAll('.game:not(.initialized)');
+  gameElements.forEach(game => {
+    game.classList.add('initialized');
+    // Attach event listeners as shown in the updated code above
+  });
+});
+
+// Start observing the document body for changes
+observer.observe(document.body, { childList: true, subtree: true });
+
 
 // Variables for snowflakes and search bar
 
