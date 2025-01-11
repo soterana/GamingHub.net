@@ -21,75 +21,91 @@
   </script>
   <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="5f2fe7be-b4a9-44ed-abd7-d13d9b4b46a3" type="text/javascript" async></script>
   <title>Gaming Hub - Play Free Games</title>
+
 <script>
-  document.addEventListener("DOMContentLoaded", async () => {
-    const baseDomain = "gaminghubplay.vercel.app";
-    const countryLanguageSubdomains = {
-      "US": "en",
-      "GB": "en",
-      "FR": "fr",
-      "DE": "de",
-      "ES": "es",
-      "IT": "it",
-      "SA": "ar",
-      "EG": "ar",
-      "CN": "zh",
-      "JP": "ja",
-      "IN": "hi",
-      "RU": "ru",
-      "BR": "pt",
-      "MX": "es",
-      "CA": "en",
-      "AU": "en",
-      "KR": "ko",
-      "TR": "tr",
-      "ZA": "en",
+  document.addEventListener("DOMContentLoaded", () => {
+    // Mapping of time zones to countries
+    const timeZoneToCountry = {
+      "Africa/Cairo": "Egypt",
+      "Asia/Riyadh": "Saudi Arabia",
+      "Asia/Dubai": "United Arab Emirates",
+      "Asia/Baghdad": "Iraq",
+      "Africa/Algiers": "Algeria",
+      "Asia/Amman": "Jordan",
+      "Asia/Beirut": "Lebanon",
+      "Africa/Khartoum": "Sudan",
+      "Asia/Damascus": "Syria",
+      "Africa/Tunis": "Tunisia",
+      "Asia/Kuwait": "Kuwait",
+      "Asia/Manama": "Bahrain",
+      "Asia/Doha": "Qatar",
+      "Asia/Muscat": "Oman",
+      "Africa/Tripoli": "Libya",
+      "Africa/Mogadishu": "Somalia",
+      "Asia/Gaza": "Palestine",
+      "Asia/Aden": "Yemen",
+      // Non-Arab countries for reference
+      "America/New_York": "United States",
+      "Europe/London": "United Kingdom",
+      "Asia/Tokyo": "Japan",
+      "Australia/Sydney": "Australia",
+      "Europe/Paris": "France",
+      "Asia/Kolkata": "India",
+      "Africa/Johannesburg": "South Africa",
     };
 
-    // Check if we already cached the country
-    const cachedCountry = localStorage.getItem("userCountry");
-    if (cachedCountry) {
-      redirectToSubdomain(cachedCountry);
-      return;
-    }
+    // Subdomain mapping for each country
+    const countrySubdomains = {
+      "Egypt": "eg",
+      "Saudi Arabia": "sa",
+      "United Arab Emirates": "ae",
+      "Iraq": "iq",
+      "Algeria": "dz",
+      "Jordan": "jo",
+      "Lebanon": "lb",
+      "Sudan": "sd",
+      "Syria": "sy",
+      "Tunisia": "tn",
+      "Kuwait": "kw",
+      "Bahrain": "bh",
+      "Qatar": "qa",
+      "Oman": "om",
+      "Libya": "ly",
+      "Somalia": "so",
+      "Palestine": "ps",
+      "Yemen": "ye",
+      // Non-Arab countries
+      "United States": "us",
+      "United Kingdom": "uk",
+      "Japan": "jp",
+      "Australia": "au",
+      "France": "fr",
+      "India": "in",
+      "South Africa": "za",
+    };
 
-    try {
-      // Fetch user's geolocation
-      const response = await fetch("https://ipapi.co/json/");
-      if (!response.ok) throw new Error("API request failed");
+    // Get the user's time zone
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    console.log("Detected Time Zone:", timeZone);
 
-      const data = await response.json();
-      const userCountry = data.country_code;
+    // Map time zone to country
+    const country = timeZoneToCountry[timeZone] || "Unknown Country";
+    console.log("Mapped Country:", country);
 
-      // Cache the result to prevent repeated API calls
-      localStorage.setItem("userCountry", userCountry);
+    // Perform action based on country (e.g., redirect to localized URL)
+    const baseDomain = "gaminghubplay.vercel.app";
+    const subdomain = countrySubdomains[country];
 
-      // Redirect based on the country
-      redirectToSubdomain(userCountry);
-    } catch (error) {
-      console.error("Error detecting location:", error);
-
-      // Default to base domain if geolocation fails
+    if (subdomain) {
       const currentHost = window.location.hostname;
-      if (currentHost !== baseDomain) {
-        window.location.href = `https://${baseDomain}`;
+      if (!currentHost.startsWith(subdomain + "-")) {
+        window.location.href = `https://${subdomain}-${baseDomain}`;
       }
-    }
-
-    function redirectToSubdomain(countryCode) {
-      const subdomain = countryLanguageSubdomains[countryCode];
-      const currentHost = window.location.hostname;
-
-      // If subdomain exists and we're not already there
-      if (subdomain && !currentHost.startsWith(subdomain + "-")) {
-        const redirectUrl = `https://${subdomain}-${baseDomain}`;
-        window.location.href = redirectUrl;
-      }
+    } else {
+      console.warn("No subdomain mapping for country:", country);
     }
   });
 </script>
-
-
 
 
 </head>
