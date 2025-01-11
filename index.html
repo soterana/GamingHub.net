@@ -23,65 +23,68 @@
   <title>Gaming Hub - Play Free Games</title>
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
-    // Define the base domain
     const baseDomain = "gaminghubplay.vercel.app";
-
-    // Define country-to-language subdomains mapping
     const countryLanguageSubdomains = {
-      "US": "en", // English for United States
-      "GB": "en", // English for United Kingdom
-      "FR": "fr", // French for France
-      "DE": "de", // German for Germany
-      "ES": "es", // Spanish for Spain
-      "IT": "it", // Italian for Italy
-      "SA": "ar", // Arabic for Saudi Arabia
-      "EG": "ar", // Arabic for Egypt
-      "CN": "zh", // Chinese for China
-      "JP": "ja", // Japanese for Japan
-      "IN": "hi", // Hindi for India
-      "RU": "ru", // Russian for Russia
-      "BR": "pt", // Portuguese for Brazil
-      "MX": "es", // Spanish for Mexico
-      "CA": "en", // English for Canada
-      "AU": "en", // English for Australia
-      "KR": "ko", // Korean for South Korea
-      "TR": "tr", // Turkish for Turkey
-      "ZA": "en", // English for South Africa
-      // Add more countries and their languages as needed
+      "US": "en",
+      "GB": "en",
+      "FR": "fr",
+      "DE": "de",
+      "ES": "es",
+      "IT": "it",
+      "SA": "ar",
+      "EG": "ar",
+      "CN": "zh",
+      "JP": "ja",
+      "IN": "hi",
+      "RU": "ru",
+      "BR": "pt",
+      "MX": "es",
+      "CA": "en",
+      "AU": "en",
+      "KR": "ko",
+      "TR": "tr",
+      "ZA": "en",
     };
 
-    try {
-      // Fetch user's geolocation data using a geolocation API
-      const response = await fetch("https://ipapi.co/json/"); // Use a free geolocation API
-      const data = await response.json();
+    // Check if we already cached the country
+    const cachedCountry = localStorage.getItem("userCountry");
+    if (cachedCountry) {
+      redirectToSubdomain(cachedCountry);
+      return;
+    }
 
-      // Extract user's country code (e.g., "US", "FR")
+    try {
+      // Fetch user's geolocation
+      const response = await fetch("https://ipapi.co/json/");
+      if (!response.ok) throw new Error("API request failed");
+
+      const data = await response.json();
       const userCountry = data.country_code;
 
-      // Check if the country has a corresponding subdomain
-      if (countryLanguageSubdomains[userCountry]) {
-        const subdomain = countryLanguageSubdomains[userCountry];
+      // Cache the result to prevent repeated API calls
+      localStorage.setItem("userCountry", userCountry);
 
-        // Check if already on the correct subdomain
-        const currentHost = window.location.hostname;
-        if (!currentHost.startsWith(subdomain + "-")) {
-          // Construct the new URL with the correct subdomain
-          const redirectUrl = `https://${subdomain}-${baseDomain}`;
-
-          // Redirect to the appropriate subdomain
-          window.location.href = redirectUrl;
-        }
-      } else {
-        // Redirect to the default domain if the country is not mapped
-        const currentHost = window.location.hostname;
-        if (currentHost !== baseDomain) {
-          window.location.href = `https://${baseDomain}`;
-        }
-      }
+      // Redirect based on the country
+      redirectToSubdomain(userCountry);
     } catch (error) {
       console.error("Error detecting location:", error);
-      // Redirect to the default domain in case of error
-      window.location.href = `https://${baseDomain}`;
+
+      // Default to base domain if geolocation fails
+      const currentHost = window.location.hostname;
+      if (currentHost !== baseDomain) {
+        window.location.href = `https://${baseDomain}`;
+      }
+    }
+
+    function redirectToSubdomain(countryCode) {
+      const subdomain = countryLanguageSubdomains[countryCode];
+      const currentHost = window.location.hostname;
+
+      // If subdomain exists and we're not already there
+      if (subdomain && !currentHost.startsWith(subdomain + "-")) {
+        const redirectUrl = `https://${subdomain}-${baseDomain}`;
+        window.location.href = redirectUrl;
+      }
     }
   });
 </script>
