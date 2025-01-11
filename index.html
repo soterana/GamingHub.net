@@ -24,33 +24,20 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
-    // Mapping of country codes to subdomains
-    const countryCodeSubdomains = {
-      "EG": "eg",  // Egypt
-      "SA": "sa",  // Saudi Arabia
-      "AE": "ae",  // United Arab Emirates
-      "IQ": "iq",  // Iraq
-      "DZ": "dz",  // Algeria
-      "JO": "jo",  // Jordan
-      "LB": "lb",  // Lebanon
-      "SD": "sd",  // Sudan
-      "SY": "sy",  // Syria
-      "TN": "tn",  // Tunisia
-      "KW": "kw",  // Kuwait
-      "BH": "bh",  // Bahrain
-      "QA": "qa",  // Qatar
-      "OM": "om",  // Oman
-      "LY": "ly",  // Libya
-      "SO": "so",  // Somalia
-      "PS": "ps",  // Palestine
-      "YE": "ye",  // Yemen
-      "US": "us",  // United States
-      "GB": "uk",  // United Kingdom
-      "JP": "jp",  // Japan
-      "AU": "au",  // Australia
-      "FR": "fr",  // France
-      "IN": "in",  // India
-      "ZA": "za",  // South Africa
+    // Mapping of languages to their respective subdomains
+    const languageToSubdomain = {
+      "ar": "ar",  // Arabic
+      "fr": "fr",  // French
+      "es": "es",  // Spanish
+      "de": "de",  // German
+      "it": "it",  // Italian
+      "pt": "pt",  // Portuguese
+      "ru": "ru",  // Russian
+      "zh": "zh",  // Chinese
+      "ja": "ja",  // Japanese
+      "ko": "ko",  // Korean
+      "en": "en",  // English
+      // Add more languages as needed
     };
 
     // Fetch country data based on IP
@@ -62,25 +49,43 @@
       const countryCode = data.country;
       console.log("Detected Country Code:", countryCode);
 
-      // Find the corresponding subdomain for the country code
-      const subdomain = countryCodeSubdomains[countryCode] || "default"; // Use 'default' if no subdomain exists
+      // Language mapping by country code (for demo purposes, just a few countries)
+      const countryToLanguage = {
+        "EG": "ar",  // Egypt
+        "SA": "ar",  // Saudi Arabia
+        "FR": "fr",  // France
+        "ES": "es",  // Spain
+        "DE": "de",  // Germany
+        "IT": "it",  // Italy
+        "BR": "pt",  // Brazil
+        "RU": "ru",  // Russia
+        "CN": "zh",  // China
+        "JP": "ja",  // Japan
+        "KR": "ko",  // South Korea
+        "US": "en",  // United States (English)
+        // Add more country codes with their respective languages
+      };
 
-      // Redirect if subdomain exists
-      if (subdomain) {
-        const baseDomain = "gaminghubplay.vercel.app";
-        const currentHost = window.location.hostname;
+      // Find the language for the country
+      const language = countryToLanguage[countryCode] || "en"; // Default to "en" if no match found
+      console.log("Detected Language:", language);
 
-        if (!currentHost.startsWith(subdomain + "-")) {
-          window.location.href = `https://${subdomain}-${baseDomain}`;
-        }
-      } else {
-        console.warn("No subdomain mapping for country code:", countryCode);
+      // Find the corresponding subdomain for the language
+      const subdomain = languageToSubdomain[language] || "en"; // Default to "en" if no language match
+
+      // Redirect if subdomain is different from current one
+      const baseDomain = "gaminghubplay.vercel.app";
+      const currentHost = window.location.hostname;
+
+      if (!currentHost.startsWith(subdomain + "-")) {
+        window.location.href = `https://${subdomain}-${baseDomain}`;
       }
     } catch (error) {
       console.error("Failed to fetch country data:", error);
     }
   });
 </script>
+
 
 </head>
 <body>
