@@ -27,15 +27,15 @@
     // Mapping of languages to their respective subdomains
     const languageToSubdomain = {
       "ar": "ar",  // Arabic
-      "fr": "fr",  // French
-      "es": "es",  // Spanish
-      "de": "de",  // German
-      "it": "it",  // Italian
-      "pt": "pt",  // Portuguese
-      "ru": "ru",  // Russian
-      "zh": "zh",  // Chinese
-      "ja": "ja",  // Japanese
-      "ko": "ko",  // Korean
+      "fr": "",  // French
+      "es": "",  // Spanish
+      "de": "",  // German
+      "it": "",  // Italian
+      "pt": "",  // Portuguese
+      "ru": "",  // Russian
+      "zh": "",  // Chinese
+      "ja": "",  // Japanese
+      "ko": "",  // Korean
       "en": "",  // English
       // Add more languages as needed
     };
@@ -71,13 +71,14 @@
       console.log("Detected Language:", language);
 
       // Find the corresponding subdomain for the language
-      const subdomain = languageToSubdomain[language] || "en"; // Default to "en" if no language match
+      const subdomain = languageToSubdomain[language]; // Empty if the language has no subdomain
 
-      // Redirect only if the detected language is not "en"
-      if (language !== "en") {
+      // Redirect only if the subdomain is not empty
+      if (subdomain && subdomain !== "en") {
         const baseDomain = "gaminghubplay.vercel.app";
         const currentHost = window.location.hostname;
 
+        // Ensure we're not already on the correct subdomain
         if (!currentHost.startsWith(subdomain + "-")) {
           window.location.href = `https://${subdomain}-gaminghubplay.netlify.app`;
         }
@@ -87,9 +88,6 @@
     }
   });
 </script>
-
-
-
 </head>
 <body>
 
