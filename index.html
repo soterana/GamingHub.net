@@ -36,7 +36,7 @@
       "zh": "zh",  // Chinese
       "ja": "ja",  // Japanese
       "ko": "ko",  // Korean
-      "en": "en",  // English
+      "en": "",  // English
       // Add more languages as needed
     };
 
@@ -73,18 +73,21 @@
       // Find the corresponding subdomain for the language
       const subdomain = languageToSubdomain[language] || "en"; // Default to "en" if no language match
 
-      // Redirect if subdomain is different from current one
-      const baseDomain = "gaminghubplay.vercel.app";
-      const currentHost = window.location.hostname;
+      // Redirect only if the detected language is not "en"
+      if (language !== "en") {
+        const baseDomain = "gaminghubplay.vercel.app";
+        const currentHost = window.location.hostname;
 
-      if (!currentHost.startsWith(subdomain + "-")) {
-        window.location.href = `https://${subdomain}-gaminghubplay.netlify.app`;
+        if (!currentHost.startsWith(subdomain + "-")) {
+          window.location.href = `https://${subdomain}-gaminghubplay.netlify.app`;
+        }
       }
     } catch (error) {
       console.error("Failed to fetch country data:", error);
     }
   });
 </script>
+
 
 
 </head>
