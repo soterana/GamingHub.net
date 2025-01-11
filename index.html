@@ -21,41 +21,49 @@
   </script>
   <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="5f2fe7be-b4a9-44ed-abd7-d13d9b4b46a3" type="text/javascript" async></script>
   <title>Gaming Hub - Play Free Games</title>
-     <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // Define the base domain and subdomain pattern
+  <script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    // Define the base domain and country-specific subdomains
     const baseDomain = "gaminghubplay.vercel.app";
-
-    // Define supported languages and their subdomains
-    const languageSubdomains = {
-      "en": "en", // English
-      "ar": "ar", // Arabic
-      "es": "es", // Spanish
-      "fr": "fr", // French
-      // Add more languages and subdomains as needed
+    const countrySubdomains = {
+      "US": "us", // United States
+      "SA": "sa", // Saudi Arabia
+      "FR": "fr", // France
+      "ES": "es", // Spain
+      "DE": "de", // Germany
+      "AR": "ar", // Argentina
+      // Add more country codes and subdomains as needed
     };
 
-    // Detect the user's browser language
-    const userLanguage = navigator.language || navigator.userLanguage;
+    try {
+      // Fetch user's geolocation data using a geolocation API
+      const response = await fetch("https://ipapi.co/json/"); // Use a free API like ipapi.co
+      const data = await response.json();
 
-    // Extract the primary language (e.g., "ar" from "ar-SA")
-    const primaryLanguage = userLanguage.split('-')[0];
+      // Extract the user's country code (e.g., "US", "SA", etc.)
+      const userCountry = data.country_code;
 
-    // Check if the language has a corresponding subdomain
-    if (languageSubdomains[primaryLanguage]) {
-      const subdomain = languageSubdomains[primaryLanguage];
+      // Check if the country has a corresponding subdomain
+      if (countrySubdomains[userCountry]) {
+        const subdomain = countrySubdomains[userCountry];
 
-      // Construct the new URL with the subdomain
-      const redirectUrl = `https://${subdomain}-${baseDomain}`;
+        // Construct the new URL with the subdomain
+        const redirectUrl = `https://${subdomain}-${baseDomain}`;
 
-      // Redirect to the appropriate subdomain
-      window.location.href = redirectUrl;
-    } else {
-      // Redirect to the default domain (e.g., English or main site)
+        // Redirect to the appropriate subdomain
+        window.location.href = redirectUrl;
+      } else {
+        // Redirect to the default domain (e.g., main site)
+        window.location.href = `https://${baseDomain}`;
+      }
+    } catch (error) {
+      console.error("Error detecting location:", error);
+      // Redirect to the default domain in case of error
       window.location.href = `https://${baseDomain}`;
     }
   });
 </script>
+
 
 
 </head>
