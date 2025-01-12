@@ -413,3 +413,15 @@ h2 {
     height: 35px;
   }
 }
+.youtube-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.youtube-link img {
+    width: 150px; /* Adjust the size as needed */
+    height: auto;
+    cursor: pointer;
+}
