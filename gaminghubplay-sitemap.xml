@@ -75,28 +75,94 @@
 
   <!-- Additional Pages -->
   <url>
-    <loc>https://gaminghubplay.vercel.app/</loc>
+    <loc>https://fr-gaminghubplay.netlify.app/</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://gaminghubplay.vercel.app/</loc>
+    <loc>https://gamingnetwork.vercel.app/</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://gaminghubplay.vercel.app</loc>
+    <loc>https://ar-gaminghubplay.netlify.app</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://gaminghubplay.vercel.app/</loc>
+    <loc>https://de-gaminghubplay.netlify.app/</loc>
     <lastmod>2025-01-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://gaminghubplay.vercel.app/advtimejakebullet</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/sprunki</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/sprunkifnf</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/superfighter</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/tiktokgravitykniferush</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/stickmandragonfight</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/huntandseek</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/fly_or_die</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/fishgamebig</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/fruitshop</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/gswitch3</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/jellyrunarchrace</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+      <loc>https://gaminghubplay.vercel.app/carclean</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
 
 </urlset>
