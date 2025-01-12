@@ -88,41 +88,6 @@
     }
   });
 </script>
-     <script>
-           async function loadEnglishGames() {
-  const securityCode = '2822/gaminghubplay.vercel.app';  // The security code you want to use
-
-  try {
-    // URL of the English database
-    const databaseUrl = 'https://soterdatabase.vercel.app/en-database.html';
-
-    // Fetch the database with security code in the headers
-    const response = await fetch(databaseUrl, {
-      headers: {
-        'X-Security-Code': securityCode  // Adding security code header for validation
-      }
-    });
-
-    if (!response.ok) throw new Error('Failed to fetch database');
-
-    // Parse and extract games
-    const databaseHtml = await response.text();
-    const parser = new DOMParser();
-    const databaseDoc = parser.parseFromString(databaseHtml, 'text/html');
-
-    // Get the content inside .games-database
-    const games = databaseDoc.querySelector('.games-database').innerHTML;
-
-    // Replace the content of the #games div with the games content
-    const gamesContainer = document.getElementById('games');
-    gamesContainer.innerHTML = games;
-  } catch (error) {
-    document.getElementById('games').innerHTML = '<p>Error loading games. Please try again later.</p>';
-    console.error('Error loading database:', error);
-  }
-}
-
-     </script>
 </head>
 <body>
 
