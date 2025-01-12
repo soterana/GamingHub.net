@@ -267,11 +267,12 @@ function createSnowflake() {
 setInterval(() => {
   createSnowflake();
 }, 500); // Adjust interval as needed
-fetch('https://soterdatabase.vercel.app/en-database.html')
+ fetch('https://soterdatabase.vercel.app/en-database.html')
     .then(response => response.text())
     .then(data => {
-      const gameGrid = document.getElementById('game-grid');
-      // You can parse the game data here and dynamically create game items
-      // Example: gameGrid.innerHTML = extractedGamesHTML;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+      const gameDatabaseContent = doc.querySelector('.games-database').innerHTML;
+      document.getElementById('game-grid').innerHTML = gameDatabaseContent;
     })
-    .catch(error => console.error('Error fetching game data:', error));
+    .catch(error => console.error('Error loading games:', error));
