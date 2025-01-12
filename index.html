@@ -87,7 +87,7 @@
       console.error("Failed to fetch country data:", error);
     }
   });
-     async function loadEnglishGames() {
+    async function loadEnglishGames() {
   const securityCode = '2822/gaminghubplay.vercel.app';  // The security code you want to use
 
   try {
@@ -107,10 +107,13 @@
     const databaseHtml = await response.text();
     const parser = new DOMParser();
     const databaseDoc = parser.parseFromString(databaseHtml, 'text/html');
+
+    // Get the content inside .games-database
     const games = databaseDoc.querySelector('.games-database').innerHTML;
 
-    // Replace the content of the #games div
-    document.getElementById('games').innerHTML = games;
+    // Replace the content of the #games div with the games content
+    const gamesContainer = document.getElementById('games');
+    gamesContainer.innerHTML = games;
   } catch (error) {
     document.getElementById('games').innerHTML = '<p>Error loading games. Please try again later.</p>';
     console.error('Error loading database:', error);
