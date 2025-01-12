@@ -288,12 +288,12 @@ async function loadEnglishGames() {
     const parser = new DOMParser();
     const databaseDoc = parser.parseFromString(databaseHtml, 'text/html');
 
-    // Get the content inside .games-database
+    // Get the content inside .games-database (this is the game grid content)
     const games = databaseDoc.querySelector('.games-database').innerHTML;
 
-    // Replace the content of the #games div with the games content
+    // Replace the content of the #games div with the content from the database
     const gamesContainer = document.getElementById('games');
-    gamesContainer.innerHTML = games;
+    gamesContainer.innerHTML = games;  // Replaces the game grid with the new content
   } catch (error) {
     document.getElementById('games').innerHTML = '<p>Error loading games. Please try again later.</p>';
     console.error('Error loading database:', error);
