@@ -267,12 +267,18 @@ function createSnowflake() {
 setInterval(() => {
   createSnowflake();
 }, 500); // Adjust interval as needed
- fetch('https://soterdatabase.vercel.app/en-database.html')
-    .then(response => response.text())
-    .then(data => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(data, 'text/html');
-      const gameDatabaseContent = doc.querySelector('.games-database').innerHTML;
-      document.getElementById('game-grid').innerHTML = gameDatabaseContent;
-    })
-    .catch(error => console.error('Error loading games:', error));
+ document.addEventListener("DOMContentLoaded", () => {
+    fetch('https://soterdatabase.vercel.app/en-database.html')
+      .then(response => response.text())
+      .then(data => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(data, 'text/html');
+        const gameDatabaseContent = doc.querySelector('.games-database');
+        
+        if (gameDatabaseContent) {
+          document.getElementById('game-grid').innerHTML = gameDatabaseContent.innerHTML;
+        } else {
+          console.error('Games database not found.');
+        }
+      })
+      .catch(error => console.error('Error loading games:', error));
