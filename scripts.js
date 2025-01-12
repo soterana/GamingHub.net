@@ -1,61 +1,3 @@
-
-    // Utility to set, get, and delete cookies
-const CookieUtils = {
-  set(name, value, days) {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = `${name}=${value}; expires=${expires}; path=/`;
-  },
-  get(name) {
-    return document.cookie.split('; ').reduce((r, v) => {
-      const [key, val] = v.split('=');
-      return key === name ? val : r;
-    }, '');
-  },
-  delete(name) {
-    this.set(name, '', -1);
-  },
-};
-
-// Elements
-const cookieBanner = document.getElementById('cookie-banner');
-const cookieModal = document.getElementById('cookie-modal');
-const functionalCheckbox = document.getElementById('functional-cookies');
-const analyticsCheckbox = document.getElementById('analytics-cookies');
-const adsCheckbox = document.getElementById('ads-cookies');
-
-// Event Listeners
-document.getElementById('accept-cookies').addEventListener('click', () => {
-  CookieUtils.set('cookies-accepted', 'all', 365);
-  hideCookieBanner();
-});
-document.getElementById('reject-cookies').addEventListener('click', () => {
-  CookieUtils.set('cookies-accepted', 'none', 365);
-  hideCookieBanner();
-});
-document.getElementById('manage-cookies').addEventListener('click', () => {
-  cookieModal.classList.remove('hidden');
-});
-document.getElementById('save-preferences').addEventListener('click', () => {
-  const preferences = {
-    analytics: analyticsCheckbox.checked,
-    ads: adsCheckbox.checked,
-  };
-  CookieUtils.set('cookie-preferences', JSON.stringify(preferences), 365);
-  cookieModal.classList.add('hidden');
-  hideCookieBanner();
-});
-
-// Show Banner if No Preferences
-if (!CookieUtils.get('cookies-accepted')) {
-  cookieBanner.classList.remove('hidden');
-}
-
-// Hide Banner
-function hideCookieBanner() {
-  cookieBanner.classList.add('hidden');
-}
-
- // Function to search games automatically as the user types
 function searchGamesAutomatically() {
   const searchInput = document.getElementById('search-bar').value.toLowerCase();  // Get the search input
   const gamesGrid = document.getElementById('games');
@@ -267,18 +209,20 @@ function createSnowflake() {
 setInterval(() => {
   createSnowflake();
 }, 500); // Adjust interval as needed
- document.addEventListener("DOMContentLoaded", () => {
-    fetch('https://soterdatabase.vercel.app/en-database.html')
-      .then(response => response.text())
-      .then(data => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const gameDatabaseContent = doc.querySelector('.games-database');
-        
-        if (gameDatabaseContent) {
-          document.getElementById('game-grid').innerHTML = gameDatabaseContent.innerHTML;
-        } else {
-          console.error('Games database not found.');
-        }
-      })
-      .catch(error => console.error('Error loading games:', error));
+document.addEventListener("DOMContentLoaded", () => {
+  fetch('https://soterdatabase.vercel.app/en-database.html') 
+    .then(response => response.text())
+    .then(data => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(data, 'text/html');
+      const gameDatabaseContent = doc.querySelector('.games-database');
+      
+      if (gameDatabaseContent) {
+        document.getElementById('game-grid').innerHTML = gameDatabaseContent.innerHTML;
+      } else {
+        console.error('Games database not found.');
+      }
+    })
+    .catch(error => console.error('Error loading games:', error));
+});
+
