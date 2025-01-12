@@ -267,29 +267,11 @@ function createSnowflake() {
 setInterval(() => {
   createSnowflake();
 }, 500); // Adjust interval as needed
-async function loadEnglishGames() {
-  try {
-    // URL of the English database
-    const databaseUrl = 'https://soterdatabase.vercel.app/en-database.html';
-
-    // Fetch the database content
-    const response = await fetch(databaseUrl);
-
-    if (!response.ok) throw new Error('Failed to fetch database');
-
-    // Parse and extract games
-    const databaseHtml = await response.text();
-    const parser = new DOMParser();
-    const databaseDoc = parser.parseFromString(databaseHtml, 'text/html');
-
-    // Get the content inside .games-database
-    const games = databaseDoc.querySelector('.games-database').innerHTML;
-
-    // Replace the content of the #games div with the extracted games
-    const gamesContainer = document.getElementById('games');
-    gamesContainer.innerHTML = games;  // Replaces the game grid with the new content
-  } catch (error) {
-    document.getElementById('games').innerHTML = '<p>Error loading games. Please try again later.</p>';
-    console.error('Error loading database:', error);
-  }
-}
+fetch('https://soterdatabase.vercel.app/en-database.html')
+    .then(response => response.text())
+    .then(data => {
+      const gameGrid = document.getElementById('game-grid');
+      // You can parse the game data here and dynamically create game items
+      // Example: gameGrid.innerHTML = extractedGamesHTML;
+    })
+    .catch(error => console.error('Error fetching game data:', error));
