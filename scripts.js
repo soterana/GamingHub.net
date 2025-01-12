@@ -268,18 +268,12 @@ setInterval(() => {
   createSnowflake();
 }, 500); // Adjust interval as needed
 async function loadEnglishGames() {
-  const securityCode = '2822/gaminghubplay.vercel.app';  // The security code you want to use
-
   try {
     // URL of the English database
     const databaseUrl = 'https://soterdatabase.vercel.app/en-database.html';
 
-    // Fetch the database with security code in the headers
-    const response = await fetch(databaseUrl, {
-      headers: {
-        'X-Security-Code': securityCode  // Adding security code header for validation
-      }
-    });
+    // Fetch the database content
+    const response = await fetch(databaseUrl);
 
     if (!response.ok) throw new Error('Failed to fetch database');
 
@@ -288,10 +282,10 @@ async function loadEnglishGames() {
     const parser = new DOMParser();
     const databaseDoc = parser.parseFromString(databaseHtml, 'text/html');
 
-    // Get the content inside .games-database (this is the game grid content)
+    // Get the content inside .games-database
     const games = databaseDoc.querySelector('.games-database').innerHTML;
 
-    // Replace the content of the #games div with the content from the database
+    // Replace the content of the #games div with the extracted games
     const gamesContainer = document.getElementById('games');
     gamesContainer.innerHTML = games;  // Replaces the game grid with the new content
   } catch (error) {
@@ -299,4 +293,4 @@ async function loadEnglishGames() {
     console.error('Error loading database:', error);
   }
 }
-
+loadenglishgames()
