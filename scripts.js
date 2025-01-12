@@ -293,4 +293,3 @@ async function loadEnglishGames() {
     console.error('Error loading database:', error);
   }
 }
-loadenglishgames()
